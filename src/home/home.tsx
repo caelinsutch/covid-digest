@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import './home.scss';
 // import SignUpCard from "../components/signupcard/signupcard"
+import { Button } from 'react-bootstrap';
 
 const features = [
   {
     title: <>No More Clickbait Headlines</>,
-    imageUrl: '../../public/img/guy_on_mound.svg',
+    imageUrl: '/img/guy_on_mound.svg',
     description: (
         <>
           You only get the information that matters in this time of crisis, hard news about COVID, without the clickbait or politics. No more scrolling through news apps looking for information, it gets delivered to your inbox three times a week.
@@ -14,7 +15,7 @@ const features = [
   },
   {
     title: <>Bite Size Segments</>,
-    imageUrl: '../../public/img/girl_with_notifications.svg',
+    imageUrl: '/img/girl_with_notifications.svg',
     description: (
         <>
           We give you bite size pieces of news to prevent being mentally overwhelemed by the flow of information in todays news cycles. Our algorithm automatically summarizes the article’s key information, to make it easier for your eyes and your mind.
@@ -23,7 +24,7 @@ const features = [
   },
   {
     title: <>Transparent Sources</>,
-    imageUrl: '../../public/img/computer.svg',
+    imageUrl: '/img/computer.svg',
     description: (
         <>
           This whole project is open sourced, so you can see where the information is coming from and how it’s being sumarized.
@@ -36,10 +37,10 @@ class Feature extends Component<{ imageUrl: any, title: any, description: any }>
     render() {
         let {imageUrl, title, description} = this.props;
         return (
-            <div className="col col--4 feature">
+            <div className="col-sm-12 col-md-4 col-lg-4 feature">
                 {imageUrl && (
-                    <div className="text--center">
-                        <img className="featureImage" src={imageUrl} alt={title}/>
+                    <div className="text-center">
+                        <img className="featureImage" src={process.env.PUBLIC_URL + imageUrl} alt={title}/>
                     </div>
                 )}
                 <h2 className="text--center featureTitle">{title}</h2>
@@ -52,17 +53,19 @@ class Feature extends Component<{ imageUrl: any, title: any, description: any }>
 function Home() {
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col col--6">
-            <h1 className="headerText">
-              COVID19 News Updates. <br/>
-              Delivered via SMS.
-            </h1>
-            <button className = "signUpButton">GET YOUR UPDATES</button>
-          </div>
-          <div className="col col--6">
-            <img className="iphone" src="../../public/img/iphone.svg" alt="iPhone" />
+      <div className="headerBanner">
+        <div className="container">
+          <div className="row headerCenter">
+            <div className="col-sm-12 col-md-6 col-lg-6">
+                <h1 className="headerText">
+                    COVID19 News Updates. <br/>
+                    Delivered via SMS.
+                </h1>
+                <Button variant="outline-primary" className="signUpButton">GET YOUR UPDATES</Button>
+            </div>
+            <div className="col-sm-12 col-md-6 col-lg-6">
+                <img className="iphone" src={process.env.PUBLIC_URL + '/img/iphone.svg'} alt="iPhone" />
+            </div>
           </div>
         </div>
       </div>
