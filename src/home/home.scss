@@ -1,0 +1,183 @@
+//Breakpoints
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .bannerText {
+    display: block;
+  }
+
+  .iphone {
+    margin-top: 3em;
+  }
+
+  .heroBanner {
+    background: transparent url("/img/swoosh.svg") no-repeat top !important;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .flexGrid {
+    display: block;
+  }
+
+  .iphone {
+    margin-top: 3em;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .tagline {
+    margin-top: 5em;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .tagline {
+    margin-top: 5em;
+  }
+}
+
+//Normal SCSS
+
+.headerText {
+  font-family: "Berlin Rounded";
+  font-weight: bold;
+  color: white;
+}
+
+.headerBanner {
+  padding: 4rem 0;
+  overflow: hidden;
+  background: transparent url("/img/swoosh.svg") no-repeat bottom !important;
+  background-size: cover !important;
+}
+
+.headerCenter {
+  display: flex;
+  width: 100% !important;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1000px;
+  flex: 1;
+}
+
+.iphone {
+  width: 90%;
+  max-height: 40em;
+}
+
+.signUpButton {
+  color: white !important;
+  border-color: white !important;
+  border-width: 0.2em;
+  margin-top: 1em;
+  font-size: 1.3em;
+  font-family: "Berlin Rounded";
+
+  &:hover {
+    background-color: aquamarine !important;
+    border-color: aquamarine !important;
+    color: black !important;
+  }
+}
+
+.featureText {
+  margin-left: 2em;
+  margin-right: 2em;
+  font-size: 0.8em;
+  font-weight: bold;
+  font-family: "Berlin Rounded";
+}
+
+.featureTitle {
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: 1.5em;
+  font-family: "Berlin Rounded";
+}
+
+//OLD CSS
+
+.aboutHeader {
+  background: linear-gradient(139.43deg, #149CFF 7.57%, #3D1D98 97.78%) !important;
+}
+
+.aboutTitle {
+  font-family: "Berlin Rounded";
+  font-size: 3em !important;
+  color: white !important;
+}
+
+.getStarted {
+  color: var(--ifm-heading-color) !important;
+  border-color: white !important;
+  border-width: 0.2em !important;
+  font-family: "Berlin Rounded", sans-serif;
+}
+
+.tagline {
+  font-size: 2.5em !important;
+  margin-bottom: 0.5em;
+  color: white !important;
+  font-family: "Berlin Rounded", sans-serif;
+}
+
+.signupForm {
+  font-family: "Berlin Rounded", sans-serif;
+  font-size: 2.5em !important;
+}
+
+.worksTitle {
+  font-family: "Berlin Rounded",sans-serif;
+  font-size: 2em;
+}
+
+.worksText{
+  font-family: "Berlin Rounded", sans-serif;
+}
+
+.worksMainContainer {
+  margin-top: 2.3em;
+}
+
+.source {
+  margin-top: 1em;
+}
+
+.buttons {
+  border-color: white !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.getStarted {
+  color: white !important;
+}
+
+.Aligner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AlignerItem {
+  align-self: center;
+}

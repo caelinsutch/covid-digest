@@ -1,0 +1,29 @@
+.form {
+  .email {
+    display: grid;
+  }
+  label {
+
+  }
+  input {
+    outline: grey 2px solid;
+  }
+
+}
+
+.button {
+  font-weight: bold;
+  border-radius: 10px;
+  font-size: 18px;
+  padding: 8px 12px;
+  height: auto;
+}
+
+.ant-input {
+  border-radius: 10px;
+}
+
+.success {
+  color: #3DB744;
+  font-weight: bold;
+}
