@@ -8,7 +8,7 @@ import { Navbar, Nav, Button } from 'react-bootstrap';
 ReactDOM.render(
   <React.StrictMode>
       <Navbar bg="light" expand="lg">
-          <Navbar.Brand href=""><img className="NavLogo" src="/img/logo.svg" alt="Logo"/></Navbar.Brand>
+          <Navbar.Brand href="/"><img className="NavLogo" src="/img/logo.svg" alt="Logo"/></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">

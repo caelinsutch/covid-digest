@@ -37,14 +37,16 @@ class Feature extends Component<{ imageUrl: any, title: any, description: any }>
     render() {
         let {imageUrl, title, description} = this.props;
         return (
-            <div className="col-sm-12 col-md-4 col-lg-4 feature">
+            <div className="col-sm-12 col-md-12 col-lg-4">
                 {imageUrl && (
                     <div className="text-center">
                         <img className="featureImage" src={process.env.PUBLIC_URL + imageUrl} alt={title}/>
                     </div>
                 )}
-                <h2 className="text--center featureTitle">{title}</h2>
-                <p className="text--center featureText">{description}</p>
+                <div className="featureTextWrapper">
+                    <h2 className="text-center featureTitle">{title}</h2>
+                    <p className="text-center featureText">{description}</p>
+                </div>
             </div>
         );
     }

@@ -10,8 +10,12 @@
     margin-top: 3em;
   }
 
-  .heroBanner {
+  .headerBanner {
     background: transparent url("/img/swoosh.svg") no-repeat top !important;
+  }
+
+  .featureImage {
+    max-width: 50vw !important;
   }
 }
 
@@ -33,16 +37,12 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .tagline {
-    margin-top: 5em;
-  }
+
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  .tagline {
-    margin-top: 5em;
-  }
+
 }
 
 //Normal SCSS
@@ -56,8 +56,8 @@
 .headerBanner {
   padding: 4rem 0;
   overflow: hidden;
-  background: transparent url("/img/swoosh.svg") no-repeat bottom !important;
-  background-size: cover !important;
+  background: transparent url("/img/swoosh.svg") no-repeat bottom;
+  background-size: cover;
 }
 
 .headerCenter {
@@ -73,6 +73,11 @@
 .iphone {
   width: 90%;
   max-height: 40em;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
 }
 
 .signUpButton {
@@ -84,9 +89,9 @@
   font-family: "Berlin Rounded";
 
   &:hover {
-    background-color: aquamarine !important;
-    border-color: aquamarine !important;
-    color: black !important;
+    background-color: rgb(55, 49, 157) !important;
+    border-color: rgb(230, 230, 230) !important;
+    color: rgb(230, 230, 230) !important;
   }
 }
 
@@ -105,6 +110,19 @@
   font-family: "Berlin Rounded";
 }
 
+.featureTextWrapper {
+  margin-top: 1.3em;
+}
+
+.featureImage {
+  width: 90%;
+  max-width: 30vw;
+}
+
+.features {
+  margin-top: 3em;
+}
+
 //OLD CSS
 
 .aboutHeader {
@@ -115,25 +133,6 @@
   font-family: "Berlin Rounded";
   font-size: 3em !important;
   color: white !important;
-}
-
-.getStarted {
-  color: var(--ifm-heading-color) !important;
-  border-color: white !important;
-  border-width: 0.2em !important;
-  font-family: "Berlin Rounded", sans-serif;
-}
-
-.tagline {
-  font-size: 2.5em !important;
-  margin-bottom: 0.5em;
-  color: white !important;
-  font-family: "Berlin Rounded", sans-serif;
-}
-
-.signupForm {
-  font-family: "Berlin Rounded", sans-serif;
-  font-size: 2.5em !important;
 }
 
 .worksTitle {
@@ -158,14 +157,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.features {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
-  width: 100%;
 }
 
 .getStarted {
