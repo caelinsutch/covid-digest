@@ -6,6 +6,14 @@
     display: block;
   }
 
+  .headerText {
+    text-align: center !important;
+  }
+
+  .feature {
+    text-align: center;
+  }
+
   .iphone {
     margin-top: 3em;
   }
@@ -19,6 +27,14 @@
 @media only screen and (min-width: 600px) {
   .flexGrid {
     display: block;
+  }
+
+  .headerText {
+    text-align: center !important;
+  }
+
+  .feature {
+    text-align: center;
   }
 
   .iphone {
@@ -50,7 +66,7 @@
 .headerText {
   font-family: "Berlin Rounded";
   font-weight: bold;
-  color: white;
+  color: white !important;
 }
 
 .headerBanner {

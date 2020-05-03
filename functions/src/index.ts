@@ -1,21 +1,21 @@
-// @ts-ignore
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
 import * as twilio from 'twilio';
-import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
-import {EventContext} from 'firebase-functions';
-import getAllStories, {Story} from './scraper';
+import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
+import { EventContext } from 'firebase-functions';
+import getAllStories, { Story } from './scraper';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
 const client = twilio(accountSid, authToken);
-
+admin.initializeApp();
 
 // Validate E164 format
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-function validE164(num: string) {
-  return /^\+?[1-9]\d{1,14}$/.test(num)
+function validE164(num: string): boolean {
+  return /^\+?[1-9]\d{1,14}$/.test(num);
 }
 
 exports.sendWelcomeText = functions.firestore
@@ -26,18 +26,19 @@ exports.sendWelcomeText = functions.firestore
     if (validE164(phoneNumber)) {
       client.messages
         .create({
-          body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+          body:
+            'This is the ship that made the Kessel Run in fourteen parsecs?',
           from: '+19388370892',
-          to: phoneNumber
+          to: phoneNumber,
         })
-        .then(message => {
+        .then((message) => {
           snap.ref.update({
             welcomeMessageSent: true,
-          })
+          });
         })
-        .catch(e => console.error(e));
+        .catch((e) => console.error(e));
     }
-  })
+  });
 
 exports.updateBBCStoriesList = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
   console.log("Compiling stories");
