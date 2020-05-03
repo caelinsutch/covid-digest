@@ -1,12 +1,14 @@
 // @ts-ignore
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
 import * as twilio from 'twilio';
 import {DocumentSnapshot} from 'firebase-functions/lib/providers/firestore';
 import {EventContext} from 'firebase-functions';
+import getAllStories, {Story} from './scraper';
 
 const accountSid = functions.config().twilio.sid;
-const authToken = functions.config().twilio.authToken;
+const authToken = functions.config().twilio.auth_token;
 const client = twilio(accountSid, authToken);
 
 
@@ -37,3 +39,12 @@ exports.sendWelcomeText = functions.firestore
     }
   })
 
+exports.updateBBCStoriesList = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
+  console.log("Compiling stories");
+  return getAllStories().then((stories: Story[] )=> {
+    admin.firestore().collection('news-stories').doc('bbc').set({
+      stories: stories
+    })
+    return true;
+  })
+})

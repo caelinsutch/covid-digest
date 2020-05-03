@@ -1,0 +1,36 @@
+name: CD
+
+on:
+  push:
+    branches: [ development, master ]
+  pull_request:
+    branches: [ development, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Main Dependencies
+      run: npm install
+#    - name: Build Site
+#      run: npm run build
+  deploy:
+    name: Deploy Functions
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master
+      - name: Install Dependencies for Firebase Functions
+        working-directory: functions
+        run: npm install
+      - name: Install Main Dependencies
+        run: npm install
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_PATH: ./functions
