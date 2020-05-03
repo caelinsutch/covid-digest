@@ -13,8 +13,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install Main Dependencies
       run: npm install
-#    - name: Build Site
-#      run: npm run build
+    - name: Build the React Site
+      run: npm run build
+
   deploy:
     name: Deploy Functions
     needs: build
