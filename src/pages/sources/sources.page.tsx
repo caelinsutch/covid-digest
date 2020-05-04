@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './sources.scss';
+import './sources.page.scss';
 //
 // const sorcs = [
 //     {

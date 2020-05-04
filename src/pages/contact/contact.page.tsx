@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import './contact.scss';
+import './contact.page.scss';
 
-function Contact() {
+function ContactPage() {
     return (
         <>
             <div className="headerBanner">
@@ -15,4 +15,4 @@ function Contact() {
     );
 }
 
-export default Contact;
+export default ContactPage;

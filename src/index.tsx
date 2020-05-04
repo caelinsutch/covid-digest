@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import About from './about/about';
-// import HowItWorks from './how-it-works/how-it-works';
-// import Sources from './sources/sources';
-// import Contact from './contact/contact';
-import Home from './pages/home/home.page';
+import AboutPage from './pages/about/about.page';
+// import HowItWorksPage from './how-it-works/how-it-works.page';
+// import SourcesPage from './sources/sources.page';
+// import ContactPage from './contact/contact.page';
+import HomePage from './pages/home/home.page';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { HashRouter, Route, Switch, Link } from 'react-router-dom';
 
@@ -27,11 +27,11 @@ ReactDOM.render(
           </Navbar>
 
           <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about" component={About} />
-              {/*<Route path="/how-it-works" component={HowItWorks} />*/}
-              {/*<Route path="/sources" component={Sources} />*/}
-              {/*<Route path="/contact" component={Contact} />*/}
+              <Route exact path="/" component={HomePage} />
+              <Route path="/about" component={AboutPage} />
+              {/*<Route path="/how-it-works" component={HowItWorksPage} />*/}
+              {/*<Route path="/sources" component={SourcesPage} />*/}
+              {/*<Route path="/contact" component={ContactPage} />*/}
           </Switch>
       </HashRouter>
   </React.StrictMode>,

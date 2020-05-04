@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './about.scss';
+import './about.page.scss';
 
 const people = [
     {
@@ -40,7 +40,7 @@ class Person extends Component<{ imageUrl: any, title: any, description: any }> 
     }
 }
 
-function About() {
+function AboutPage() {
     return (
         <>
             <div className="headerBanner">
@@ -74,4 +74,4 @@ function About() {
     );
 }
 
-export default About;
+export default AboutPage;
