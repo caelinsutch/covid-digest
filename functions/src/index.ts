@@ -3,12 +3,14 @@ import * as admin from 'firebase-admin';
 
 import * as twilio from 'twilio';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
-import { EventContext } from 'firebase-functions';
 import getAllStories, { Story } from './scraper';
+import app from './express-server';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
-const client = twilio(accountSid, authToken);
+const twilioClient = twilio(accountSid, authToken);
+const twilioPhoneNumber = '+19388370892'
+
 admin.initializeApp();
 
 // Validate E164 format
@@ -20,18 +22,19 @@ function validE164(num: string): boolean {
 
 exports.sendWelcomeText = functions.firestore
   .document('users/{docId}')
-  .onCreate((snap: DocumentSnapshot, context: EventContext) => {
+  .onCreate((snap: DocumentSnapshot) => {
     const newUser: any = snap.data();
     const phoneNumber: string = newUser.phoneNumber;
     if (validE164(phoneNumber)) {
-      client.messages
+      twilioClient.messages
         .create({
           body:
-            'This is the ship that made the Kessel Run in fourteen parsecs?',
-          from: '+19388370892',
+            '😷 Welcome to COVID19 News Updates 😷 \n' +
+            'Updates are delivered every few days, if you would like to unsubscribe type UNSUBSCRIBE',
+          from: twilioPhoneNumber,
           to: phoneNumber,
         })
-        .then((message) => {
+        .then(() => {
           snap.ref.update({
             welcomeMessageSent: true,
           });
@@ -40,12 +43,16 @@ exports.sendWelcomeText = functions.firestore
     }
   });
 
-exports.updateBBCStoriesList = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
-  console.log("Compiling stories");
+exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun(() => {
   return getAllStories().then((stories: Story[] )=> {
+    // Parse object to remove nulls so Firebase doesn't complian
+    const storiesParsed = JSON.parse( JSON.stringify(stories ) )
     admin.firestore().collection('news-stories').doc('bbc').set({
-      stories: stories
+      stories: storiesParsed
     })
     return true;
   })
 })
+
+
+exports.server = functions.https.onRequest(app)

@@ -29,6 +29,14 @@
   .signUpForm {
     max-width: 90vw !important;
   }
+
+  .signUpButton {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    flex: 1;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -38,7 +46,7 @@
   }
 
   .headerText {
-    text-align: center !important;
+    text-align: left !important;
   }
 
   .feature {
@@ -72,7 +80,6 @@
 //Normal SCSS
 
 .headerText {
-  font-family: "Berlin Rounded";
   font-weight: bold;
   color: white !important;
   font-size: 2.4em;
@@ -112,11 +119,6 @@
   margin-top: 1em;
   font-size: 1.3em;
   font-family: "Berlin Rounded";
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  flex: 1;
 
   &:hover {
     background-color: rgb(55, 49, 157) !important;
@@ -130,14 +132,12 @@
   margin-right: 2em;
   font-size: 0.8em;
   font-weight: bold;
-  font-family: "Berlin Rounded";
 }
 
 .featureTitle {
   margin-left: 1em;
   margin-right: 1em;
   font-size: 1.5em;
-  font-family: "Berlin Rounded";
 }
 
 .featureTextWrapper {
@@ -182,18 +182,12 @@
 }
 
 .aboutTitle {
-  font-family: "Berlin Rounded";
   font-size: 3em !important;
   color: white !important;
 }
 
 .worksTitle {
-  font-family: "Berlin Rounded",sans-serif;
   font-size: 2em;
-}
-
-.worksText{
-  font-family: "Berlin Rounded", sans-serif;
 }
 
 .worksMainContainer {

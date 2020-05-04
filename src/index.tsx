@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import Home from './home/home';
 import About from './about/about';
 // import HowItWorks from './how-it-works/how-it-works';
 // import Sources from './sources/sources';
 // import Contact from './contact/contact';
+import Home from './pages/home/home.page';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { HashRouter, Route, Switch, Link } from 'react-router-dom';
 

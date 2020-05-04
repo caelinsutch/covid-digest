@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import './signupcard.scss';
+import './signup-card.component.scss';
 import { Button, Form, Input, message, notification } from 'antd';
 import firebase from '../../firebase';
 import { FirebaseError } from 'firebase';
@@ -16,7 +16,7 @@ interface State {
   };
 }
 
-class SignupCard extends React.Component<{}, State> {
+class SighupCardComponent extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -202,4 +202,4 @@ class SignupCard extends React.Component<{}, State> {
   }
 }
 
-export default SignupCard;
+export default SighupCardComponent;
