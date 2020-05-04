@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './contact.page.scss';
 
-function ContactPage() {
+function ContactPage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner">
-        <div className="container">
-          <div className="headerCenter">
-            <h1 className="headerTitle">Contact</h1>
-          </div>
-        </div>
+      <div className="headerBanner" />
+      <div className="container">
+        <h1>Contact</h1>
       </div>
     </>
   );
