@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
-let SummarizerManager = require("node-summarizer").SummarizerManager;
+const SummarizerManager = require("node-summarizer").SummarizerManager;
 
 // URL that is being scanned
 const url = 'https://www.bbc.com/news/coronavirus';
@@ -15,7 +15,7 @@ export interface Story {
   sent: boolean;
 }
 
-let stories: Array<Story> = new Array<Story>();
+const stories: Array<Story> = new Array<Story>();
 
 /**
  * Get all the titles of stories on the BBC COVID front page
@@ -137,7 +137,7 @@ async function getAllStories(): Promise<Array<Story>> {
 
   getStoryInlineSummaries($);
 
-  await asyncForEach(stories, async (story, i) => {
+  await asyncForEach(stories, async (story: Story, i) => {
     if (story.inlineSummary === '' && story.link !== '') {
       const $1 = await getStorySource(story.link)
       const summary = await summarizeStory($1);
@@ -149,9 +149,7 @@ async function getAllStories(): Promise<Array<Story>> {
     }
   })
 
-  const storiesWithSummaries = stories.filter(story => (story.generatedSummary !== '' || story.inlineSummary !== ''));
-  return storiesWithSummaries;
-
+  return stories.filter(story => (story.generatedSummary !== '' || story.inlineSummary !== ''));
 }
 
 

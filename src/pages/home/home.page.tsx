@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './home.scss';
-import SignUpCard from '../components/signupcard/signupcard';
+import './home.page.scss';
+import SignUpCard from '../../components/signupcard/sighup-card.component';
 import { Button } from 'react-bootstrap';
 
 const features = [
@@ -45,10 +45,10 @@ class Feature extends Component<{
   title: any;
   description: any;
 }> {
-  render() {
+  render(): JSX.Element {
     const { imageUrl, title, description } = this.props;
     return (
-      <div className="col-sm-12 col-md-4 col-lg-4 feature">
+      <div className="col-sm-12 col-md-12 col-lg-4 feature pb-4">
         {imageUrl && (
           <div className="text-center">
             <img className="featureImage" src={imageUrl} alt={title} />
@@ -61,7 +61,7 @@ class Feature extends Component<{
   }
 }
 
-function Home() {
+function HomePage(): JSX.Element {
   return (
     <>
       <div className="headerBanner">
@@ -104,4 +104,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;

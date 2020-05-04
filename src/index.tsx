@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import Home from './home/home';
+import HomePage from './pages/home/home.page';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 
 ReactDOM.render(
@@ -26,7 +26,7 @@ ReactDOM.render(
         </Button>
       </Navbar.Collapse>
     </Navbar>
-    <Home />
+    <HomePage />
   </React.StrictMode>,
   document.getElementById('root')
 );
