@@ -89,8 +89,8 @@ function SourceElement(source: Source): JSX.Element {
 function SourcesPage(): JSX.Element {
   return (
     <>
-      <div className="headerBackground" >
-          <h1 className="headerText text-center">Archived Sources</h1>
+      <div className="headerBackground">
+        <h1 className="headerText text-center">Archived Sources</h1>
       </div>
       <section className="sourcesWrapper">
         {source && source.length && (

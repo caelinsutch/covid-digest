@@ -4,7 +4,7 @@ import './how-it-works.page.scss';
 function HowItWorksPage(): JSX.Element {
   return (
     <>
-      <div className="headerBackground" >
+      <div className="headerBackground">
         <h1 className="text-center headerText">How it Works</h1>
       </div>
       <main>
@@ -23,7 +23,11 @@ function HowItWorksPage(): JSX.Element {
               </div>
               <div className="col-sm-12 col-md-12 col-lg-6">
                 <div className="text--center">
-                  <img className="descriptorImg" src="/img/code.jpg" alt="AH YES CODE" />
+                  <img
+                    className="descriptorImg"
+                    src="/img/code.jpg"
+                    alt="AH YES CODE"
+                  />
                 </div>
               </div>
             </div>
