@@ -52,3 +52,17 @@ body {
   margin-right: auto;
   flex: 1;
 }
+
+.navBarLink {
+  text-decoration: none;
+  color: grey;
+
+  &:hover {
+    color: lightgrey;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: blue;
+  }
+}
