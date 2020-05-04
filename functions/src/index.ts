@@ -43,7 +43,7 @@ exports.sendWelcomeText = functions.firestore
     }
   });
 
-exports.updateBBCStoriesList = functions.pubsub.schedule('every 1 day').onRun(() => {
+exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun(() => {
   return getAllStories().then((stories: Story[] )=> {
     // Parse object to remove nulls so Firebase doesn't complian
     const storiesParsed = JSON.parse( JSON.stringify(stories ) )
