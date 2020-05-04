@@ -15,6 +15,11 @@ const twilioPhoneNumber = '+19388370892'
 const app = express();
 app.use(cors({origin: true}));
 
+/**
+ * Send a text message
+ * @param body {string}
+ * @param to {string} E164 phone number
+ */
 export async function sendMessage(body: string, to: string) {
   return twilioClient.messages.create({
     body: body,
@@ -23,10 +28,14 @@ export async function sendMessage(body: string, to: string) {
   })
 }
 
-function unsubscribeUser(from: string) {
-  sendMessage("You\'ve been unsubscribed!", from)
+/**
+ * Unsubscribe a user and delete all their data
+ * @param userPhoneNumber
+ */
+function unsubscribeUser(userPhoneNumber: string) {
+  sendMessage("You\'ve been unsubscribed!", userPhoneNumber)
     .then(() => {
-      admin.auth().getUserByPhoneNumber(from).then((user) => {
+      admin.auth().getUserByPhoneNumber(userPhoneNumber).then((user) => {
         admin.auth().deleteUser(user.uid).then(() => {
           console.log("User " + user.uid + " deleted in FireAuth!");
           admin.firestore().collection('users').doc(user.uid).delete().then(() => {
@@ -48,6 +57,9 @@ const helpMessage = `Commands:
 Questions? Contact us at https://covid-digest.com
 `
 
+/**
+ * Handle incoming message post event
+ */
 app.post('/incoming-message', (req: any, res) => {
   const from: string = req.body.From;
   switch (req.body.Body.toLowerCase().trim()) {
@@ -61,13 +73,11 @@ app.post('/incoming-message', (req: any, res) => {
       sendMessage("Hello!", from).then(() => res.end());
       break;
     case "story":
-      console.log("Story Time");
       sendUserStory(from).then(() => res.end());
       break;
     case "stats":
     case "facts":
       getCovidData().then((data: CovidFacts) => {
-        console.log("Got Data")
         sendMessage(`Current Global COVID stats: 
 😷 ${data.activeCases} - Active Cases 
 ☠ ${data.deaths} - Deaths 
