@@ -26,11 +26,11 @@ exports.sendWelcomeText = functions.firestore
     const newUser: any = snap.data();
     const phoneNumber: string = newUser.phoneNumber;
     if (validE164(phoneNumber)) {
-      twilioClient.messages
+      return twilioClient.messages
         .create({
           body:
             '😷 Welcome to COVID19 News Updates 😷 \n' +
-            'Updates are delivered every few days, if you would like to unsubscribe type CANCEL',
+            'Updates are delivered every few days, if you would like to unsubscribe type UNSUBSCRIBE. View commands by typing commands',
           from: twilioPhoneNumber,
           to: phoneNumber,
         })
@@ -38,8 +38,11 @@ exports.sendWelcomeText = functions.firestore
           snap.ref.update({
             welcomeMessageSent: true,
           });
+          return true;
         })
         .catch((e) => console.error(e));
+    } else {
+      return null;
     }
   });
 

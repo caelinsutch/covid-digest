@@ -4,6 +4,7 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as twilio from 'twilio';
 import getCovidData, { CovidFacts } from './covid-facts';
+import getStories from './story.service';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
@@ -14,7 +15,7 @@ const twilioPhoneNumber = '+19388370892'
 const app = express();
 app.use(cors({origin: true}));
 
-async function sendMessage(body: string, to: string) {
+export async function sendMessage(body: string, to: string) {
   return twilioClient.messages.create({
     body: body,
     from: twilioPhoneNumber,
@@ -40,21 +41,44 @@ function unsubscribeUser(from: string) {
     })
 }
 
+const helpMessage = `Commands:
+"story": Get a random story
+"stats": Get the most recent stats on COVID19
+
+Questions? Contact us at https://covid-digest.com
+`
+
 app.post('/incoming-message', (req: any, res) => {
   const from: string = req.body.From;
-  switch (req.body.Body.toLowerCase()) {
+  switch (req.body.Body.toLowerCase().trim()) {
+    case "commands":
+      sendMessage(helpMessage, from).then(() => res.end());
+      break;
     case "cancel":
       unsubscribeUser(from);
       break;
     case "hello":
-      sendMessage("Hello!", from);
+      sendMessage("Hello!", from).then(() => res.end());
+      break;
+    case "story":
+      console.log("Story Time");
+      getStories(from).then(() => res.end());
+      break;
     case "stats":
     case "facts":
       getCovidData().then((data: CovidFacts) => {
-        sendMessage(`Current Global COVID stats: \n😷 ${data.activeCases} - Active Cases \n☠ ${data.deaths} - Deaths \n🙂 ${data.recovered} - Recovered \nLast Updated ${data.lastUpdate} \nhttps://covid-digest.com`, from)
+        console.log("Got Data")
+        sendMessage(`Current Global COVID stats: 
+😷 ${data.activeCases} - Active Cases 
+☠ ${data.deaths} - Deaths 
+🙂 ${data.recovered} - Recovered 
+Last Updated ${data.lastUpdate} 
+https://covid-digest.com`, from).then(() => res.end())
       })
+      break;
+    default:
+      sendMessage("Command not found, type commands to see valid commands", from).then(() => res.end())
   }
-  res.end();
 })
 
 export default app;

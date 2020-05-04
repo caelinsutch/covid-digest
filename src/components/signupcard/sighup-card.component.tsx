@@ -182,7 +182,7 @@ class SighupCardComponent extends React.Component<{}, State> {
 
   submitSuccess(): JSX.Element {
     return (
-      <div className="form-wrapper center">
+      <div className="form-wrapper center p-4">
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         <h2 className="success">Success! You'll be hearing from us soon!</h2>
       </div>
