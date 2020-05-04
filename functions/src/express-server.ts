@@ -3,7 +3,7 @@ import * as cors from 'cors';
 import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as twilio from 'twilio';
-import getCovidData, {CovidFacts, covidFactsApi} from './covid-facts';
+import getCovidData, { CovidFacts } from './covid-facts';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
