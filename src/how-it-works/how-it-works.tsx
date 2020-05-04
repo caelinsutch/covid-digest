@@ -1,5 +1,5 @@
-// import React, {Component} from 'react';
-// import './how-it-works.scss';
+import React, {Component} from 'react';
+import './how-it-works.scss';
 //
 // function HowItWorks() {
 //     return (

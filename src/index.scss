@@ -1,4 +1,5 @@
 @import "~bootstrap/scss/bootstrap";
+@import '~antd/dist/antd.css';
 
 body {
   margin: 0;
@@ -36,10 +37,8 @@ body {
   font-style: normal;
 }
 
-//General CSS
-
-.text-center {
-  text-align: center;
+* {
+  font-family: 'Berlin Rounded';
 }
 
 //Nav SCSS
@@ -65,4 +64,14 @@ body {
   &:active {
     color: blue;
   }
+}
+
+h1, h2, h3, h4, h5 {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.card {
+  background: #FFFFFF;
+  box-shadow: 0 0 44px rgba(0, 0, 0, 0.2);
+  border-radius: 22px;
 }

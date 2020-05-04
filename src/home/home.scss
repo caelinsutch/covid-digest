@@ -6,6 +6,14 @@
     display: block;
   }
 
+  .headerText {
+    text-align: center !important;
+  }
+
+  .feature {
+    text-align: center;
+  }
+
   .iphone {
     margin-top: 3em;
   }
@@ -17,6 +25,10 @@
   .featureImage {
     max-width: 50vw !important;
   }
+
+  .signUpForm {
+    max-width: 90vw !important;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -25,8 +37,20 @@
     display: block;
   }
 
+  .headerText {
+    text-align: center !important;
+  }
+
+  .feature {
+    text-align: center;
+  }
+
   .iphone {
     margin-top: 3em;
+  }
+
+  .signUpForm {
+    max-width: 90vw !important;
   }
 }
 
@@ -50,7 +74,8 @@
 .headerText {
   font-family: "Berlin Rounded";
   font-weight: bold;
-  color: white;
+  color: white !important;
+  font-size: 2.4em;
 }
 
 .headerBanner {
@@ -87,6 +112,11 @@
   margin-top: 1em;
   font-size: 1.3em;
   font-family: "Berlin Rounded";
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
 
   &:hover {
     background-color: rgb(55, 49, 157) !important;
@@ -121,6 +151,28 @@
 
 .features {
   margin-top: 3em;
+}
+
+.signUpForm {
+  max-width: 50vw;
+  display: flex;
+  align-items: center;
+  margin: 2em auto 3em;
+  flex: 1;
+}
+
+.signUpButtonHash {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: rgb(230, 230, 230);
+    text-decoration: none;
+  }
+
+  &:active {
+    color: rgb(230, 230, 230);
+  }
 }
 
 //OLD CSS
