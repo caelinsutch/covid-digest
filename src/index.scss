@@ -52,6 +52,19 @@ body {
   flex: 1;
 }
 
+.navBarLink {
+  text-decoration: none;
+  color: grey;
+
+  &:hover {
+    color: lightgrey;
+    text-decoration: none;
+  }
+
+  &:active {
+    color: blue;
+  }
+}
 
 h1, h2, h3, h4, h5 {
   color: rgba(0, 0, 0, 0.85) !important;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './home.page.scss';
 import SignUpCard from '../../components/signupcard/sighup-card.component';
 import { Button } from 'react-bootstrap';
+import { HashLink as Link } from 'react-router-hash-link';
 
 const features = [
   {
@@ -73,7 +74,7 @@ function HomePage(): JSX.Element {
                 Delivered via SMS.
               </h1>
               <Button variant="outline-primary" className="signUpButton">
-                GET YOUR UPDATES
+                  <Link to="/#signUp" className="signUpButtonHash">GET YOUR UPDATES</Link>
               </Button>
             </div>
             <div className="col-sm-12 col-md-6 col-lg-6">
@@ -94,7 +95,7 @@ function HomePage(): JSX.Element {
             </div>
           </section>
         )}
-        <section className="signUpForm mb-4">
+        <section className="signUpForm mb-4" id="signUp">
           <div className="container">
             <SignUpCard />
           </div>
