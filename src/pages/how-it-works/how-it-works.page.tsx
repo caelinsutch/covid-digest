@@ -4,12 +4,14 @@ import './how-it-works.page.scss';
 function HowItWorksPage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner" />
+      <div className="headerBackground" >
+        <h1 className="text-center headerText">How it Works</h1>
+      </div>
       <main>
-        <section>
+        <section className="howworksWrapper">
           <div className="container">
             <div className="row">
-              <div className="col col--6">
+              <div className="col-sm-12 col-md-12 col-lg-6">
                 <div className="text--center">
                   <h2 className="works-title">
                     It works because we beat the computer into submission.
@@ -19,9 +21,9 @@ function HowItWorksPage(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <div className="col col--6">
+              <div className="col-sm-12 col-md-12 col-lg-6">
                 <div className="text--center">
-                  <img src="/img/code.jpg" alt="AH YES CODE" />
+                  <img className="descriptorImg" src="/img/code.jpg" alt="AH YES CODE" />
                 </div>
               </div>
             </div>

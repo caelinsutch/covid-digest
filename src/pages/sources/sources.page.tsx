@@ -74,8 +74,8 @@ const source: Source[] = [
 function SourceElement(source: Source): JSX.Element {
   const { title, date, summary, docLink } = source;
   return (
-    <div className="col col--12">
-      <h2 className="text--center">
+    <div className="col-sm-12 col-md-12 col-lg-6">
+      <h2 className="text-center">
         {title} - {date}
       </h2>
       <p className="text-center">{summary}</p>
@@ -89,8 +89,10 @@ function SourceElement(source: Source): JSX.Element {
 function SourcesPage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner" />
-      <main>
+      <div className="headerBackground" >
+          <h1 className="headerText text-center">Archived Sources</h1>
+      </div>
+      <section className="sourcesWrapper">
         {source && source.length && (
           <section className="sources">
             <div className="container">
@@ -102,7 +104,7 @@ function SourcesPage(): JSX.Element {
             </div>
           </section>
         )}
-      </main>
+      </section>
     </>
   );
 }

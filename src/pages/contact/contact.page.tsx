@@ -4,9 +4,13 @@ import './contact.page.scss';
 function ContactPage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner" />
+      <div className="headerBackground">
+          <h1 className="headerText text-center">
+              Contact Us
+          </h1>
+      </div>
       <div className="container">
-        <h1>Contact</h1>
+
       </div>
     </>
   );
