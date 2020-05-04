@@ -74,7 +74,9 @@ function HomePage(): JSX.Element {
                 Delivered via SMS.
               </h1>
               <Button variant="outline-primary" className="signUpButton">
-                  <Link to="/#signUp" className="signUpButtonHash">GET YOUR UPDATES</Link>
+                <Link to="/#signUp" className="signUpButtonHash">
+                  GET YOUR UPDATES
+                </Link>
               </Button>
             </div>
             <div className="col-sm-12 col-md-6 col-lg-6">

@@ -13,13 +13,14 @@ function Footer(): JSX.Element {
           </div>
           <div className="col-12 col-md-6 col-lg-6">
             <p>
-              Questions, comments, or concerns? Email us at caelinsutch@gmail.com
+              Questions, comments, or concerns? Email us at
+              caelinsutch@gmail.com
             </p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Footer;
