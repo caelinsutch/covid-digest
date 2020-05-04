@@ -4,10 +4,13 @@ import * as admin from 'firebase-admin';
 import * as twilio from 'twilio';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import getAllStories, { Story } from './scraper';
+import app from './express-server';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
-const client = twilio(accountSid, authToken);
+const twilioClient = twilio(accountSid, authToken);
+const twilioPhoneNumber = '+19388370892'
+
 admin.initializeApp();
 
 // Validate E164 format
@@ -23,12 +26,12 @@ exports.sendWelcomeText = functions.firestore
     const newUser: any = snap.data();
     const phoneNumber: string = newUser.phoneNumber;
     if (validE164(phoneNumber)) {
-      client.messages
+      twilioClient.messages
         .create({
           body:
             '😷 Welcome to COVID19 News Updates 😷 \n' +
             'Updates are delivered every few days, if you would like to unsubscribe type UNSUBSCRIBE',
-          from: '+19388370892',
+          from: twilioPhoneNumber,
           to: phoneNumber,
         })
         .then(() => {
@@ -50,3 +53,6 @@ exports.updateBBCStoriesList = functions.pubsub.schedule('every 1 day').onRun(()
     return true;
   })
 })
+
+
+exports.server = functions.https.onRequest(app)
