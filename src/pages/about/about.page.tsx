@@ -28,7 +28,7 @@ class Person extends Component<{
   title: any;
   description: any;
 }> {
-  render() {
+  render(): JSX.Element {
     const { imageUrl, title, description } = this.props;
     return (
       <div className="person col-12 col-md-6 col-lg-6 px-4">
@@ -44,10 +44,10 @@ class Person extends Component<{
   }
 }
 
-function AboutPage() {
+function AboutPage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner"/>
+      <div className="headerBanner" />
       {people && people.length && (
         <section className="aboutWrapper">
           <div className="container">

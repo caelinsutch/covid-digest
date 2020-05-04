@@ -30,7 +30,7 @@ exports.sendWelcomeText = functions.firestore
         .create({
           body:
             '😷 Welcome to COVID19 News Updates 😷 \n' +
-            'Updates are delivered every few days, if you would like to unsubscribe type UNSUBSCRIBE',
+            'Updates are delivered every few days, if you would like to unsubscribe type CANCEL',
           from: twilioPhoneNumber,
           to: phoneNumber,
         })

@@ -7,8 +7,11 @@ import AboutPage from './pages/about/about.page';
 // import ContactPage from './contact/contact.page';
 import HomePage from './pages/home/home.page';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-import {Route, Switch, Link, BrowserRouter} from 'react-router-dom';
+import { Route, Switch, Link, BrowserRouter } from 'react-router-dom';
 import Footer from './components/footer/footer.component';
+import SourcesPage from './pages/sources/sources.page';
+import HowItWorksPage from './pages/how-it-works/how-it-works.page';
+import ContactPage from './pages/contact/contact.page';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -53,9 +56,9 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
-        {/*<Route path="/how-it-works" component={HowItWorksPage} />*/}
-        {/*<Route path="/sources" component={SourcesPage} />*/}
-        {/*<Route path="/contact" component={ContactPage} />*/}
+        <Route path="/how-it-works" component={HowItWorksPage} />
+        <Route path="/sources" component={SourcesPage} />
+        <Route path="/contact" component={ContactPage} />
       </Switch>
     </BrowserRouter>
     <Footer />
