@@ -4,7 +4,7 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import * as twilio from 'twilio';
 import getCovidData, { CovidFacts } from './covid-facts';
-import getStories from './story.service';
+import {sendUserStory} from './story.service';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
@@ -62,7 +62,7 @@ app.post('/incoming-message', (req: any, res) => {
       break;
     case "story":
       console.log("Story Time");
-      getStories(from).then(() => res.end());
+      sendUserStory(from).then(() => res.end());
       break;
     case "stats":
     case "facts":

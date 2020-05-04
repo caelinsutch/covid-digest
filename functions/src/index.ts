@@ -5,6 +5,7 @@ import * as twilio from 'twilio';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
 import getAllStories, { Story } from './scraper';
 import app from './express-server';
+import {sendAllUsersStory} from './story.service';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
@@ -57,5 +58,8 @@ exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun
   })
 })
 
+exports.sendDailyStory = functions.pubsub.schedule('every day 12:00').onRun(() => {
+  return sendAllUsersStory();
+})
 
 exports.server = functions.https.onRequest(app)

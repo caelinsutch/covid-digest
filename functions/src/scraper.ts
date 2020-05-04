@@ -108,7 +108,8 @@ async function summarizeStory($: any): Promise<string | null> {
     const Summarizer = new SummarizerManager(storyText,2);
     const summary: string = Summarizer.getSummaryByFrequency().summary;
     if (summary && !summary.includes('undefined') && !summary.includes('\n')) {
-      return summary.replace("[,.!?;:]", "$0 ");
+      // Add spaces after punctuation
+      return summary.replace('[,.!?;:"]', "$0 ");
     } else {
       return null;
     }

@@ -1,6 +1,13 @@
 import * as admin from 'firebase-admin';
 import {Story} from './scraper';
 import {sendMessage} from './express-server';
+import * as functions from 'firebase-functions'
+import * as twilio from 'twilio';
+
+const accountSid = functions.config().twilio.sid;
+const authToken = functions.config().twilio.auth_token;
+const twilioClient = twilio(accountSid, authToken);
+const service = twilioClient.notify.services(functions.config().twilio.notify_service_id);
 
 export interface User {
   name: string;
@@ -9,7 +16,7 @@ export interface User {
   sentStories: string[]; // Array of story links the user has read
 }
 
-async function getStories(from: string) {
+export async function sendUserStory(from: string, extraText = '') {
   // Get the user
   const user = await admin.auth().getUserByPhoneNumber(from);
   // User Document Reference
@@ -38,22 +45,8 @@ async function getStories(from: string) {
       sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
     });
 
-    let summary: string;
-    if (randomStory.inlineSummary === '') {
-      summary = randomStory.generatedSummary;
-    } else {
-      summary = randomStory.inlineSummary;
-    }
     // Send the story to the user
-    await sendMessage(`${randomStory.title} from BBC News
-
-Summary:
-${summary}
-
-Read Full Article: ${randomStory.link}
-
-More information: https://covid-digest.com
-`, from)
+    await sendMessage(summaryText(randomStory.title, getStorySummary(randomStory), randomStory.link, extraText), from)
 
   } else {
     await sendMessage("We have no more stories for you :(. Check back later", from)
@@ -61,4 +54,60 @@ More information: https://covid-digest.com
 
 }
 
-export default getStories;
+function getStorySummary(story: Story): string {
+  if (story.inlineSummary === '') {
+    return story.generatedSummary;
+  } else {
+    return story.inlineSummary;
+  }}
+
+function summaryText(title: string, summary: string, link: string, extraText = ''): string {
+  return `${extraText}${title} from BBC News
+
+Summary:
+${summary}
+
+Read Full Article: ${link}
+
+More information: https://covid-digest.com
+`
+}
+
+export async function sendAllUsersStory() {
+  const users = await admin.firestore().collection('users').get();
+  const bindings = users.docs.map(doc => JSON.stringify({binding_type: 'sms', address: doc.data().phoneNumber}));
+
+  const sentStoriesDoc = await admin.firestore().collection('news-stories').doc('sent').get();
+  // @ts-ignore
+  const alreadySentStories: string[] = sentStoriesDoc.data().sentStories;
+  const document = await admin.firestore().collection('news-stories').doc('bbc').get();
+  // Array of all the stories that haven't been sent yet
+  const stories: Story[] = document.data()?.stories.filter((story: Story) => !(alreadySentStories.includes(story.link))) as Story[];
+  console.log('Unsent Stories ', stories);
+
+  const randomStory = stories[Math.floor(Math.random() * stories.length)];
+  console.log('Sending Story ', randomStory);
+
+  console.log(randomStory)
+  service.notifications
+    .create({
+      toBinding: bindings,
+      body: summaryText(randomStory.title, getStorySummary(randomStory), randomStory.link, "Your daily story 😷 \n")
+    })
+    .then(notification => {
+      // Update users with the seen story
+      admin.firestore().collection('users').get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.update({
+            sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
+          })
+          admin.firestore().collection('news-stories').doc('sent').update({
+            sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
+          })
+        })
+      })
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
