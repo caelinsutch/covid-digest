@@ -94,7 +94,7 @@ function HomePage(): JSX.Element {
             </div>
           </section>
         )}
-        <section className="signUpForm">
+        <section className="signUpForm mb-4">
           <div className="container">
             <SignUpCard />
           </div>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import HomePage from './pages/home/home.page';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import Footer from './components/footer/footer.component';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.render(
       </Navbar.Collapse>
     </Navbar>
     <HomePage />
+    <Footer />
   </React.StrictMode>,
   document.getElementById('root')
 );
