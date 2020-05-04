@@ -51,15 +51,12 @@ app.post('/incoming-message', (req: any, res) => {
     case "stats":
     case "facts":
       getCovidData().then((data: CovidFacts) => {
-        sendMessage(`
-        Current Global COVID stats:
-        😷 ${data.activeCases} - Active Cases
-        ☠ ${data.deaths} - Deaths
-        🙂 ${data.recovered} - Recovered
-        Last Updated ${data.lastUpdate}
-        Source: ${covidFactsApi}
-        https://covid-digest.com
-        `, from)
+        sendMessage(`Current Global COVID stats: 
+😷 $\{data.activeCases} - Active Cases 
+☠ $\{data.deaths} - Deaths 
+🙂 $\{data.recovered} - Recovered 
+Last Updated $\{data.lastUpdate} 
+https://covid-digest.com`, from)
       })
   }
   res.end();
