@@ -1,0 +1,73 @@
+//Breakpoints
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+
+}
+
+//Normal Scss
+
+.people {
+  max-width: 600px !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2em;
+}
+
+.headerText {
+  font-weight: bold;
+  color: white !important;
+  font-size: 2.4em;
+}
+
+.headerBackground {
+  padding: 4rem 0;
+  overflow: hidden;
+  background: linear-gradient(139.43deg, #149CFF 7.57%, #3D1D98 97.78%);
+  background-size: cover;
+}
+
+.center {
+  display: flex;
+  width: 100% !important;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
+}
+
+.personImg {
+  max-width: 50vw !important;
+}
+
+.aboutWrapper {
+  margin-top: 3em;
+}
+
+.noDec {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
