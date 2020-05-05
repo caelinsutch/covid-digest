@@ -76,15 +76,15 @@ function SourceElement(source: Source): JSX.Element {
   const { title, date, summary, docLink } = source;
   return (
     <div className="col-sm-12 col-md-12 col-lg-6">
-        <div className="mr-2 ml-2">
-            <h2 className="text-center">
-                {title} - {date}
-            </h2>
-            <p className="text-center">{summary}</p>
-            <p>
-                Link to source: <a href={docLink}>{docLink}</a>
-            </p>
-        </div>
+      <div className="mr-2 ml-2">
+        <h2 className="text-center">
+          {title} - {date}
+        </h2>
+        <p className="text-center">{summary}</p>
+        <p>
+          Link to source: <a href={docLink}>{docLink}</a>
+        </p>
+      </div>
     </div>
   );
 }
@@ -93,7 +93,9 @@ function SourcesPage(): JSX.Element {
   return (
     <>
       <div className={styles.headerBackground}>
-        <h1 className={classNames(styles.headerText, "text-center")}>Archived Sources</h1>
+        <h1 className={classNames(styles.headerText, 'text-center')}>
+          Archived Sources
+        </h1>
       </div>
       <section className={styles.sourcesWrapper}>
         {source && source.length && (

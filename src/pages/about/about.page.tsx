@@ -10,8 +10,14 @@ const people = [
       <>
         Caelin Sutch is a software developer and creative director out of
         Sacramento, California. He can be found on his{' '}
-        <a className={styles.noDec} href="https://caelinsutch.com">website</a> or on{' '}
-        <a className={styles.noDec} href="https://www.linkedin.com/in/caelin-sutch-602b6b135/">
+        <a className={styles.noDec} href="https://caelinsutch.com">
+          website
+        </a>{' '}
+        or on{' '}
+        <a
+          className={styles.noDec}
+          href="https://www.linkedin.com/in/caelin-sutch-602b6b135/"
+        >
           Linkedin
         </a>
         .
@@ -21,14 +27,19 @@ const people = [
   {
     title: <>Alden Parker</>,
     imageUrl: '/img/alden.png',
-    description: <>
-        Alden Parker is a software developer out of
-        Sacramento, California. He can be found on his{' '}
-        <a className={styles.noDec} href="https://www.linkedin.com/in/alden-parker-jr/">
-            Linkedin
+    description: (
+      <>
+        Alden Parker is a software developer out of Sacramento, California. He
+        can be found on his{' '}
+        <a
+          className={styles.noDec}
+          href="https://www.linkedin.com/in/alden-parker-jr/"
+        >
+          Linkedin
         </a>
         .
-    </>,
+      </>
+    ),
   },
 ];
 
@@ -40,18 +51,28 @@ class Person extends Component<{
   render(): JSX.Element {
     const { imageUrl, title, description } = this.props;
     return (
-      <div className={classNames(styles.person, "col-12 col-md-6 col-lg-6 px-4")}>
+      <div
+        className={classNames(styles.person, 'col-12 col-md-6 col-lg-6 px-4')}
+      >
         {imageUrl && (
           <div className="text-center mb-2">
             <img
-              className={classNames("img-fluid", styles.center, styles.personImg)}
+              className={classNames(
+                'img-fluid',
+                styles.center,
+                styles.personImg
+              )}
               src={imageUrl}
               alt={title}
             />
           </div>
         )}
-        <h2 className={classNames("text-center", styles.personName)}>{title}</h2>
-        <p className={classNames("text-center", styles.personDescription)}>{description}</p>
+        <h2 className={classNames('text-center', styles.personName)}>
+          {title}
+        </h2>
+        <p className={classNames('text-center', styles.personDescription)}>
+          {description}
+        </p>
       </div>
     );
   }
@@ -62,7 +83,9 @@ function AboutPage(): JSX.Element {
     <>
       <div className={styles.headerBackground}>
         <div className="container">
-          <h1 className={classNames("text-center", styles.headerText)}>About Us</h1>
+          <h1 className={classNames('text-center', styles.headerText)}>
+            About Us
+          </h1>
         </div>
       </div>
       <section>
@@ -81,7 +104,7 @@ function AboutPage(): JSX.Element {
       {people && people.length && (
         <section className={styles.aboutWrapper}>
           <div className="container">
-            <div className={classNames("row", styles.people)}>
+            <div className={classNames('row', styles.people)}>
               {people.map((props, idx) => (
                 <Person key={idx} {...props} />
               ))}

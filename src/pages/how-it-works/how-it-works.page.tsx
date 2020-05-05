@@ -6,7 +6,9 @@ function HowItWorksPage(): JSX.Element {
   return (
     <>
       <div className={styles.headerBackground}>
-        <h1 className={classNames("text-center", styles.headerText)}>How it Works</h1>
+        <h1 className={classNames('text-center', styles.headerText)}>
+          How it Works
+        </h1>
       </div>
       <main>
         <section className={styles.howworksWrapper}>
@@ -16,9 +18,7 @@ function HowItWorksPage(): JSX.Element {
                 <h2 className={styles.worksTitle}>
                   It works because we beat the computer into submission.
                 </h2>
-                <p>
-                  This is an actual picture of us coding. --->
-                </p>
+                <p>This is an actual picture of us coding. ---></p>
               </div>
               <div className="col-sm-12 col-md-12 col-lg-6">
                 <div className="text-center">

@@ -56,8 +56,12 @@ class Feature extends Component<{
             <img className={styles.featureImage} src={imageUrl} alt={title} />
           </div>
         )}
-        <h2 className={classNames("text-center", styles.featureTitle)}>{title}</h2>
-        <p className={classNames("text-center", styles.featureText)}>{description}</p>
+        <h2 className={classNames('text-center', styles.featureTitle)}>
+          {title}
+        </h2>
+        <p className={classNames('text-center', styles.featureText)}>
+          {description}
+        </p>
       </div>
     );
   }
@@ -68,7 +72,7 @@ function HomePage(): JSX.Element {
     <>
       <div className={styles.headerBanner}>
         <div className="container">
-          <div className={classNames("row", styles.headerCenter)}>
+          <div className={classNames('row', styles.headerCenter)}>
             <div className="col-sm-12 col-md-6 col-lg-6">
               <h1 className={styles.headerText}>
                 COVID19 News Updates. <br />
@@ -81,7 +85,11 @@ function HomePage(): JSX.Element {
               </Button>
             </div>
             <div className="col-sm-12 col-md-6 col-lg-6">
-              <img className={styles.iphone} src="/img/iphone.svg" alt="iPhone" />
+              <img
+                className={styles.iphone}
+                src="/img/iphone.svg"
+                alt="iPhone"
+              />
             </div>
           </div>
         </div>
@@ -98,7 +106,7 @@ function HomePage(): JSX.Element {
             </div>
           </section>
         )}
-        <section className={classNames(styles.signUpForm, "mb-4")} id="signUp">
+        <section className={classNames(styles.signUpForm, 'mb-4')} id="signUp">
           <div className="container">
             <SignUpCard />
           </div>
