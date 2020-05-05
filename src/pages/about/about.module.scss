@@ -63,3 +63,11 @@
 .aboutWrapper {
   margin-top: 3em;
 }
+
+.noDec {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -10,8 +10,8 @@ const people = [
       <>
         Caelin Sutch is a software developer and creative director out of
         Sacramento, California. He can be found on his{' '}
-        <a href="https://caelinsutch.com">website</a> or on{' '}
-        <a href="https://www.linkedin.com/in/caelin-sutch-602b6b135/">
+        <a className={styles.noDec} href="https://caelinsutch.com">website</a> or on{' '}
+        <a className={styles.noDec} href="https://www.linkedin.com/in/caelin-sutch-602b6b135/">
           Linkedin
         </a>
         .
@@ -21,7 +21,14 @@ const people = [
   {
     title: <>Alden Parker</>,
     imageUrl: '/img/alden.png',
-    description: <>Description...</>,
+    description: <>
+        Alden Parker is a software developer out of
+        Sacramento, California. He can be found on his{' '}
+        <a className={styles.noDec} href="https://www.linkedin.com/in/alden-parker-jr/">
+            Linkedin
+        </a>
+        .
+    </>,
   },
 ];
 
