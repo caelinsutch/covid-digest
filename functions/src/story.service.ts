@@ -34,15 +34,15 @@ export async function sendUserStory(phoneNumberToSend: string, extraText = '') {
   // Get the stories that have already been sent
   storiesAlreadySent = userData.sentStories;
   // Get the stories document
-  const document = await admin.firestore().collection('news-stories').doc('bbc').get();
-  // Array of all the stories
-  const stories: Story[] = document.data()?.stories as Story[];
+  const collection = await admin.firestore().collection('news-stories').get();
+  const docs = collection.docs
+  const docsNotSent = docs.filter(doc => !storiesAlreadySent.includes(doc.id));
+  const stories: Story[] = docsNotSent.map(doc => doc.data()) as Story[];
   // Filter out the ones the user has already seen
-  const storiesNotSent = stories.filter(story => !storiesAlreadySent?.includes(story.link))
 
-  if (storiesNotSent.length !== 0) {
+  if (stories.length !== 0) {
     // Get a random story phoneNumberToSend the stories that haven't been sent
-    const randomStory = storiesNotSent[Math.floor(Math.random() * storiesNotSent.length)];
+    const randomStory = stories[Math.floor(Math.random() * stories.length)];
     // Update the userdoc with the story that they've read
     await admin.firestore().collection('users').doc(user.uid).update({
       sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
@@ -94,15 +94,12 @@ export async function sendAllUsersStory() {
   const users = await admin.firestore().collection('users').get();
   const bindings = users.docs.map(doc => JSON.stringify({binding_type: 'sms', address: doc.data().phoneNumber}));
 
-  const sentStoriesDoc = await admin.firestore().collection('news-stories').doc('sent').get();
-  // @ts-ignore
-  const alreadySentStories: string[] = sentStoriesDoc.data().sentStories;
-  const document = await admin.firestore().collection('news-stories').doc('bbc').get();
-  // Array of all the stories that haven't been sent yet
-  const stories: Story[] = document.data()?.stories.filter((story: Story) => !(alreadySentStories.includes(story.link))) as Story[];
-
+  const collections = await admin.firestore().collection('news-stories').get();
+  const stories: Story[] = collections.docs.map(doc => doc.data() as Story).filter(story => !story.sent);
+  console.log(stories);
   // Choose a random story
   const randomStory = stories[Math.floor(Math.random() * stories.length)];
+  console.log(randomStory);
 
   service.notifications
     .create({
@@ -118,8 +115,10 @@ export async function sendAllUsersStory() {
             sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
           })
           // Aded to globally sent stories
-          admin.firestore().collection('news-stories').doc('sent').update({
-            sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
+          admin.firestore().collection('news-stories').where('link', '==', randomStory.link).get().then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              admin.firestore().collection('news-stories').doc(doc.id).update({ sent: true});
+            })
           })
         })
       })

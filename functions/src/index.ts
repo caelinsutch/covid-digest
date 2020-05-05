@@ -3,9 +3,10 @@ import * as admin from 'firebase-admin';
 
 import * as twilio from 'twilio';
 import { DocumentSnapshot } from 'firebase-functions/lib/providers/firestore';
-import getAllStories, { Story } from './scraper';
+import getAllStories, {Story} from './scraper';
 import app from './express-server';
 import {sendAllUsersStory} from './story.service';
+import {RuntimeOptions} from 'firebase-functions';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
@@ -49,17 +50,30 @@ exports.sendWelcomeText = functions.firestore
     }
   });
 
+const runtimeOpts: RuntimeOptions = {
+  timeoutSeconds: 300,
+  memory: '1GB'
+}
+
 /**
  * Scrape the BBC website for new stories to update in the databaseonce a day
  */
-exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun(() => {
-  return getAllStories().then((stories: Story[] )=> {
+exports.updateBBCStoriesList = functions.runWith(runtimeOpts)
+  .pubsub.schedule('every day 00:00').onRun(async () => {
+  return getAllStories().then(async (stories: Story[] )=> {
+    const batch = admin.firestore().batch();
     // Parse object to remove nulls so Firebase doesn't complian
-    const storiesParsed = JSON.parse( JSON.stringify(stories ) )
-    admin.firestore().collection('news-stories').doc('bbc').set({
-      stories: storiesParsed
+    const newsStoriesRef = admin.firestore().collection('news-stories');
+    const existingStories = await newsStoriesRef.get();
+    const existingStoriesData = await existingStories.docs.map(doc => doc.data());
+    stories.forEach(story => {
+      if (!existingStoriesData.includes(story)) {
+        const docRef = newsStoriesRef.doc();
+        const jsonedStory = JSON.parse(JSON.stringify(story));
+        batch.set(docRef, jsonedStory);
+      }
     })
-    return true;
+    await batch.commit();
   })
 })
 
