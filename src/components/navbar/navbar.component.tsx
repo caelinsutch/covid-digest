@@ -44,7 +44,8 @@ function NavCom(): JSX.Element {
                             <NavLink to="/about" className={styles.navBarLink} activeClassName={styles.active}>
                                 About
                             </NavLink>
-                            <br/><div className={styles.spacing}/>
+                            <br/>
+                            <div className={styles.spacing}/>
                             <NavLink to="/how-it-works" className={styles.navBarLink} activeClassName={styles.active}>
                                 How it Works
                             </NavLink>
