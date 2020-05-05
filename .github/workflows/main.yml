@@ -29,10 +29,18 @@ jobs:
         run: npm install
       - name: Install Main Dependencies
         run: npm install
-      - name: Deploy to Firebase
+      - name: Build the site
+        run: npm run build
+      - name: Deploy Website
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only functions,hosting
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Deploy to Functions Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_PATH: ./functions

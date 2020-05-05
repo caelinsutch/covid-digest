@@ -1,117 +1,102 @@
 import React from 'react';
 import styles from './sources.module.scss';
 import classNames from 'classnames';
+import { db } from '../../firebase';
 
 interface Source {
   title: any;
-  summary: any;
-  docLink: string;
-  date: any;
+  datePublished: string;
+  generatedSummary: string;
+  inlineSummary: string;
+  link: string;
+  sent: boolean;
 }
 
-const source: Source[] = [
-  {
-    title: <>Made Up Source</>,
-    summary: (
-      <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida
-        tristique quam, in hendrerit nulla ultricies id. Curabitur accumsan elit
-        sit amet enim posuere efficitur. Sed eget feugiat erat. Ut id nunc
-        interdum, interdum nibh in, feugiat purus. Maecenas sem velit, rutrum
-        vitae placerat nec, vestibulum et diam. Cras orci nisi, convallis eu
-        tincidunt sit amet, lobortis in orci. Mauris maximus lorem quis ligula
-        iaculis, at rutrum massa pharetra. Etiam eget iaculis leo. Ut ultricies
-        nulla vitae est feugiat semper. Donec vestibulum dignissim accumsan.
-        Vestibulum accumsan eu libero quis finibus. Nulla vel neque quis odio
-        blandit imperdiet. Aliquam sit amet enim rutrum, elementum orci in,
-        ultricies felis.
-        <br />
-        Aenean gravida erat vitae sem mollis, non tincidunt ante commodo. Nulla
-        varius, magna vitae aliquam faucibus, arcu mauris finibus nulla, vel
-        mollis lorem purus molestie ligula. Donec diam magna, semper sit amet
-        commodo non, mollis in neque. Sed eget convallis erat. Maecenas quis
-        nisl ornare, lobortis magna quis, dapibus arcu. Proin lacinia et libero
-        in vehicula. Sed eget neque eu justo venenatis euismod nec non turpis.
-        Nam pretium, arcu sed facilisis gravida, diam tellus blandit ligula, non
-        viverra felis mi eget erat. Maecenas molestie, eros sit amet suscipit
-        elementum, purus turpis dictum arcu, aliquet consectetur...
-      </>
-    ),
-    docLink: 'https://www.google.com',
-    date: <>1.1.20</>,
-  },
-  {
-    title: <>Another 1</>,
-    summary: (
-      <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida
-        tristique quam, in hendrerit nulla ultricies id. Curabitur accumsan elit
-        sit amet enim posuere efficitur. Sed eget feugiat erat. Ut id nunc
-        interdum, interdum nibh in, feugiat purus. Maecenas sem velit, rutrum
-        vitae placerat nec, vestibulum et diam. Cras orci nisi, convallis eu
-        tincidunt sit amet, lobortis in orci. Mauris maximus lorem quis ligula
-        iaculis, at rutrum massa pharetra. Etiam eget iaculis leo. Ut ultricies
-        nulla vitae est feugiat semper. Donec vestibulum dignissim accumsan.
-        Vestibulum accumsan eu libero quis finibus. Nulla vel neque quis odio
-        blandit imperdiet. Aliquam sit amet enim rutrum, elementum orci in,
-        ultricies felis.
-        <br />
-        Aenean gravida erat vitae sem mollis, non tincidunt ante commodo. Nulla
-        varius, magna vitae aliquam faucibus, arcu mauris finibus nulla, vel
-        mollis lorem purus molestie ligula. Donec diam magna, semper sit amet
-        commodo non, mollis in neque. Sed eget convallis erat. Maecenas quis
-        nisl ornare, lobortis magna quis, dapibus arcu. Proin lacinia et libero
-        in vehicula. Sed eget neque eu justo venenatis euismod nec non turpis.
-        Nam pretium, arcu sed facilisis gravida, diam tellus blandit ligula, non
-        viverra felis mi eget erat. Maecenas molestie, eros sit amet suscipit
-        elementum, purus turpis dictum arcu, aliquet consectetur...
-      </>
-    ),
-    docLink: 'https://www.google.com',
-    date: <>1.1.20</>,
-  },
-];
-
-function SourceElement(source: Source): JSX.Element {
-  const { title, date, summary, docLink } = source;
-  return (
-    <div className="col-sm-12 col-md-12 col-lg-6">
-      <div className="mr-2 ml-2">
-        <h2 className="text-center">
-          {title} - {date}
-        </h2>
-        <p className="text-center">{summary}</p>
-        <p>
-          Link to source: <a href={docLink}>{docLink}</a>
-        </p>
-      </div>
-    </div>
-  );
+interface State {
+  sources: Source[] | null;
 }
 
-function SourcesPage(): JSX.Element {
-  return (
-    <>
-      <div className={styles.headerBackground}>
-        <h1 className={classNames(styles.headerText, 'text-center')}>
-          Archived Sources
-        </h1>
+class SourcesPage extends React.Component<{}, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      sources: null,
+    };
+  }
+
+  async componentDidMount(): Promise<void> {
+    const ref = db.collection('news-stories');
+    try {
+      ref.onSnapshot((snapshot) => {
+        const sources: any[] = [];
+        snapshot.docs.forEach((doc) => {
+          sources.push(doc.data());
+        });
+        this.setState({
+          sources: sources,
+        });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  SourceElement(source: Source): JSX.Element {
+    const {
+      title,
+      datePublished,
+      inlineSummary,
+      generatedSummary,
+      link,
+    } = source;
+    return (
+      <div className="col-sm-12 col-md-12 col-lg-6">
+        <div className="mr-2 ml-2">
+          <h2 className="text-center">{title}</h2>
+          <h3>Inline Summary</h3>
+          <p className="text-center">{inlineSummary}</p>
+          <h3>Generated Summary</h3>
+          <p className="text-center">{generatedSummary}</p>
+          <p>
+            Link to source: <a href={link}>{link}</a>
+          </p>
+        </div>
       </div>
-      <section className={styles.sourcesWrapper}>
-        {source && source.length && (
-          <section className="sources">
-            <div className="container">
-              <div className="row">
-                {source.map((props, idx) => (
-                  <SourceElement key={idx} {...props} />
-                ))}
-              </div>
+    );
+  }
+
+  SourcesList(): JSX.Element {
+    if (this.state.sources) {
+      return (
+        <section className="sources">
+          <div className="container">
+            <div className="row">
+              {this.state.sources.map((props, idx) => (
+                <this.SourceElement key={idx} {...props} />
+              ))}
             </div>
-          </section>
-        )}
-      </section>
-    </>
-  );
+          </div>
+        </section>
+      );
+    } else {
+      return <h1>Loading</h1>;
+    }
+  }
+
+  render(): JSX.Element {
+    return (
+      <>
+        <div className={styles.headerBackground}>
+          <h1 className={classNames(styles.headerText, 'text-center')}>
+            Archived Sources
+          </h1>
+        </div>
+        <section className={styles.sourcesWrapper}>
+          {this.state?.sources ? this.SourcesList() : <h3>Loading</h3>}
+        </section>
+      </>
+    );
+  }
 }
 
 export default SourcesPage;
