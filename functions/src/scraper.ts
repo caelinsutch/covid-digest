@@ -105,7 +105,7 @@ async function summarizeStory($: any): Promise<string | null> {
 
   // Summarise the story
   try {
-    const Summarizer = new SummarizerManager(storyText,2);
+    const Summarizer = new SummarizerManager(storyText,4);
     const summary: string = Summarizer.getSummaryByFrequency().summary;
     if (summary && !summary.includes('undefined') && !summary.includes('\n')) {
       // Add spaces after punctuation
