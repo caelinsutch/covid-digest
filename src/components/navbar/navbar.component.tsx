@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from './navbar.module.scss';
 import AboutPage from '../../pages/about/about.page';
 import HomePage from '../../pages/home/home.page';
 import SourcesPage from '../../pages/sources/sources.page';
 import HowItWorksPage from '../../pages/how-it-works/how-it-works.page';
 import ContactPage from '../../pages/contact/contact.page';
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import { Route, Switch, Link, BrowserRouter } from 'react-router-dom';
+import { Navbar, Button } from 'react-bootstrap';
+import { Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { SidebarWrapper, Sidebar, Shadow } from "./navbar.styled";
 import classNames from "classnames";
 
@@ -25,7 +25,7 @@ function NavCom(): JSX.Element {
 
     return (
         <>
-            <Shadow open={open}></Shadow>
+            <Shadow open={open}/>
             <BrowserRouter>
                 <Navbar bg="light" expand="lg">
                     <Navbar.Brand href="/">
@@ -39,26 +39,23 @@ function NavCom(): JSX.Element {
                     </Button>
                     <SidebarWrapper open={open}>
                         <Sidebar className={classNames("mr-auto", styles.sidebarSpacing)}>
-                            <Nav.Link>
-                                <Link to="/about" className={styles.navBarLink}>
-                                    About
-                                </Link>
-                            </Nav.Link>
-                            <Nav.Link>
-                                <Link to="/how-it-works" className={styles.navBarLink}>
-                                    How it Works
-                                </Link>
-                            </Nav.Link>
-                            <Nav.Link>
-                                <Link to="/sources" className={styles.navBarLink}>
-                                    Sources
-                                </Link>
-                            </Nav.Link>
-                            <Nav.Link>
-                                <Link to="/contact" className={styles.navBarLink}>
-                                    Contact Us
-                                </Link>
-                            </Nav.Link>
+                            <div className={styles.spacing}/>
+                            <NavLink to="/about" className={styles.navBarLink} activeClassName={styles.active}>
+                                About
+                            </NavLink>
+                            <br/><div className={styles.spacing}/>
+                            <NavLink to="/how-it-works" className={styles.navBarLink} activeClassName={styles.active}>
+                                How it Works
+                            </NavLink>
+                            <br/><div className={styles.spacing}/>
+                            <NavLink to="/sources" className={styles.navBarLink} activeClassName={styles.active}>
+                                Sources
+                            </NavLink>
+                            <br/><div className={styles.spacing}/>
+                            <NavLink to="/contact" className={styles.navBarLink} activeClassName={styles.active}>
+                                Contact Us
+                            </NavLink>
+                            <div className={styles.spacing}/>
                         </Sidebar>
                         <Button
                             variant="outline-success"

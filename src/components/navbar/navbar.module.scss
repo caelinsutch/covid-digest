@@ -24,6 +24,10 @@
     margin-top: 0.4em;
     margin-left: 0.4em;
   }
+
+  .spacing {
+    margin-top: 1em;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -40,6 +44,10 @@
   .sidebarSpacing {
     margin-top: 0.4em;
     margin-left: 0.4em;
+  }
+
+  .spacing {
+    margin-top: 1em;
   }
 }
 
@@ -58,13 +66,17 @@
     margin-top: 0.4em;
     margin-left: 0.4em;
   }
+
+  .spacing {
+    margin-top: 1em;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .githubButton {
     right: 1em;
-    top: 0.5em;
+    top: 0.2em;
     z-index: 1;
     position: absolute;
   }
@@ -74,7 +86,7 @@
 @media only screen and (min-width: 1200px) {
   .githubButton {
     right: 1em;
-    top: 0.5em;
+    top: 0.2em;
     z-index: 1;
     position: absolute;
   }
@@ -92,6 +104,9 @@
 .navBarLink {
   text-decoration: none;
   color: grey;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1em;
 
   &:hover {
     color: lightgrey;
@@ -109,4 +124,8 @@
   z-index: 1;
   position: absolute;
   visibility: hidden;
+}
+
+.active {
+  color: blue !important;
 }
