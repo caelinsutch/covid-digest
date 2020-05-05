@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './about.page.scss';
+import styles from './about.module.scss';
+import classNames from 'classnames';
 
 const people = [
   {
@@ -32,18 +33,18 @@ class Person extends Component<{
   render(): JSX.Element {
     const { imageUrl, title, description } = this.props;
     return (
-      <div className="person col-12 col-md-6 col-lg-6 px-4">
+      <div className={classNames(styles.person, "col-12 col-md-6 col-lg-6 px-4")}>
         {imageUrl && (
-          <div className="text--center mb-2">
+          <div className="text-center mb-2">
             <img
-              className="img-fluid person-img headerCenter"
+              className={classNames("img-fluid", styles.center, styles.personImg)}
               src={imageUrl}
               alt={title}
             />
           </div>
         )}
-        <h2 className="text-center personName">{title}</h2>
-        <p className="text-center personDescription">{description}</p>
+        <h2 className={classNames("text-center", styles.personName)}>{title}</h2>
+        <p className={classNames("text-center", styles.personDescription)}>{description}</p>
       </div>
     );
   }
@@ -52,14 +53,14 @@ class Person extends Component<{
 function AboutPage(): JSX.Element {
   return (
     <>
-      <div className="headerBackground">
+      <div className={styles.headerBackground}>
         <div className="container">
-          <h1 className="text-center headerText">About Us</h1>
+          <h1 className={classNames("text-center", styles.headerText)}>About Us</h1>
         </div>
       </div>
       <section>
         <div className="container">
-          <p className="aboutSummary text-center mt-5 pr-3 pl-3">
+          <p className="text-center mt-5 pr-3 pl-3">
             We built this project to make a difference. We've seen how COVID can
             impact news cycles and create rising levels of hysteria, anxiety and
             stress. One of the downsides of today's always-on news cycle is the
@@ -71,9 +72,9 @@ function AboutPage(): JSX.Element {
         </div>
       </section>
       {people && people.length && (
-        <section className="aboutWrapper">
+        <section className={styles.aboutWrapper}>
           <div className="container">
-            <div className="row people">
+            <div className={classNames("row", styles.people)}>
               {people.map((props, idx) => (
                 <Person key={idx} {...props} />
               ))}
