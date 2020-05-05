@@ -67,7 +67,7 @@ exports.updateBBCStoriesList = functions.runWith(runtimeOpts)
     const existingStories = await newsStoriesRef.get();
     const existingStoriesData = await existingStories.docs.map(doc => doc.data());
     stories.forEach(story => {
-      if (!existingStoriesData.includes(story)) {
+      if (!(existingStoriesData.map(s => s.title).includes(story.title))) {
         const docRef = newsStoriesRef.doc();
         const jsonedStory = JSON.parse(JSON.stringify(story));
         batch.set(docRef, jsonedStory);
