@@ -87,7 +87,7 @@ function HomePage(): JSX.Element {
             <div className="col-sm-12 col-md-6 col-lg-6">
               <img
                 className={styles.iphone}
-                src="/img/iphone.svg"
+                src="/img/iphone.png"
                 alt="iPhone"
               />
             </div>
