@@ -9,7 +9,7 @@ export interface CovidFacts {
   lastUpdate: string;
 }
 
-export const covidFactsApi = 'https://covid-simple.satyawikananda.tech/api/world'
+const covidFactsApi = 'https://covid-simple.satyawikananda.tech/api/world'
 
 /**
  * Gets the total number of COVID Cases

@@ -1,44 +1,45 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Covid Digest
 
-## Available Scripts
+[![GitHub contributors](https://img.shields.io/github/contributors/Naereen/StrapDown.js.svg)](https://GitHub.com/caelinsutch/covid-digest/graphs/contributors/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![TypeScript](https://badges.frapsoft.com/typescript/love/typescript.png?v=101)](https://github.com/ellerbrock/typescript-badges/)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+![React](https://aleen42.github.io/badges/src/react.svg)
+![Eslint](https://aleen42.github.io/badges/src/eslint.svg)
 
-In the project directory, you can run:
+[![forthebadge](https://forthebadge.com/images/badges/fuck-it-ship-it.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 
-### `npm start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Master: ![CD](https://github.com/caelinsutch/covid-digest/workflows/CD/badge.svg?branch=master)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Development: ![CD](https://github.com/caelinsutch/covid-digest/workflows/CD/badge.svg?branch=development)
 
-### `npm test`
+Summarized News stories and COVID facts delivered by text weekly. Made with ReactJS, Firebase Functions, and Twilio SMS
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### How Summarizing Works
+First, we comb the BBC COVID stories webpage for articles, take the title of each link and article, then comb each individual article to get the article words.
+Each article is passed through a Frequency based summarization algorithm from [node-summarizer](https://www.npmjs.com/package/node-summarizer#desc), described as 
 
-### `npm run build`
+>This type of summary works best for text that is not too complicated.Split the given text into sentences.
+ Preprocess the sentences by removing all punctuation and making all letters lowercase.
+ Make a list of all the words that occur in the text and find the frequency of the words.
+ Take the calculated frequencies of the words and calculate the total weight of the original sentences.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+and then stored in a database. Every day, we sent out a summarized article using the Twilio API to all the users who have signed up.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Contributing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We'd love to have you contribute! Feel free to take a look at the issues list to see what stuff there is to work on, we're looking forward to your assistance!
 
-### `npm run eject`
+## Overview of Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Frontend
+React site using AntDesign and React Bootstrap
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Backend
+Firebase Cloud functions hooked up to Cloud Firestore and FireAuth for phoen authentication. Twilio is used for SMS delivery.
+Web Scrapping is used to comb the BBC Coronavirius coverage and pull the stories into a database, where they're sent out to users.

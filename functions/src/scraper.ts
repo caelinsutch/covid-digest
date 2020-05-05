@@ -105,10 +105,11 @@ async function summarizeStory($: any): Promise<string | null> {
 
   // Summarise the story
   try {
-    const Summarizer = new SummarizerManager(storyText,2);
+    const Summarizer = new SummarizerManager(storyText,4);
     const summary: string = Summarizer.getSummaryByFrequency().summary;
     if (summary && !summary.includes('undefined') && !summary.includes('\n')) {
-      return summary.replace("[,.!?;:]", "$0 ");
+      // Add spaces after punctuation
+      return summary.replace('[,.!?;:"]', "$0 ");
     } else {
       return null;
     }
@@ -118,7 +119,7 @@ async function summarizeStory($: any): Promise<string | null> {
 }
 
 // Util for running async functiosn in for each format
-async function asyncForEach(array: Array<any>, callback: (val: any, i: number, arr: Array<any>) => any) {
+export async function asyncForEach(array: Array<any>, callback: (val: any, i: number, arr: Array<any>) => any) {
   for (let index = 0; index < array.length; index++) {
     await callback(array[index], index, array);
   }

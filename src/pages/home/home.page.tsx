@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './home.page.scss';
+import styles from './home.module.scss';
 import SignUpCard from '../../components/signupcard/sighup-card.component';
 import { Button } from 'react-bootstrap';
 import { HashLink as Link } from 'react-router-hash-link';
+import classNames from 'classnames';
 
 const features = [
   {
@@ -52,11 +53,15 @@ class Feature extends Component<{
       <div className="col-sm-12 col-md-12 col-lg-4 feature pb-4">
         {imageUrl && (
           <div className="text-center">
-            <img className="featureImage" src={imageUrl} alt={title} />
+            <img className={styles.featureImage} src={imageUrl} alt={title} />
           </div>
         )}
-        <h2 className="text--center featureTitle">{title}</h2>
-        <p className="text--center featureText">{description}</p>
+        <h2 className={classNames('text-center', styles.featureTitle)}>
+          {title}
+        </h2>
+        <p className={classNames('text-center', styles.featureText)}>
+          {description}
+        </p>
       </div>
     );
   }
@@ -65,29 +70,33 @@ class Feature extends Component<{
 function HomePage(): JSX.Element {
   return (
     <>
-      <div className="headerBanner">
+      <div className={styles.headerBanner}>
         <div className="container">
-          <div className="row headerCenter">
+          <div className={classNames('row', styles.headerCenter)}>
             <div className="col-sm-12 col-md-6 col-lg-6">
-              <h1 className="headerText">
+              <h1 className={styles.headerText}>
                 COVID19 News Updates. <br />
                 Delivered via SMS.
               </h1>
-              <Button variant="outline-primary" className="signUpButton">
-                <Link to="/#signUp" className="signUpButtonHash">
+              <Button variant="outline-primary" className={styles.signUpButton}>
+                <Link to="/#signUp" className={styles.signUpButtonHash}>
                   GET YOUR UPDATES
                 </Link>
               </Button>
             </div>
             <div className="col-sm-12 col-md-6 col-lg-6">
-              <img className="iphone" src="/img/iphone.svg" alt="iPhone" />
+              <img
+                className={styles.iphone}
+                src="/img/iphone.svg"
+                alt="iPhone"
+              />
             </div>
           </div>
         </div>
       </div>
       <div>
         {features && features.length && (
-          <section className="features">
+          <section className={styles.features}>
             <div className="container">
               <div className="row flex justify-center -align-center">
                 {features.map((props, idx) => (
@@ -97,7 +106,7 @@ function HomePage(): JSX.Element {
             </div>
           </section>
         )}
-        <section className="signUpForm mb-4" id="signUp">
+        <section className={classNames(styles.signUpForm, 'mb-4')} id="signUp">
           <div className="container">
             <SignUpCard />
           </div>
