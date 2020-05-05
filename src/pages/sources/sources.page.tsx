@@ -42,13 +42,7 @@ class SourcesPage extends React.Component<{}, State> {
   }
 
   SourceElement(source: Source): JSX.Element {
-    const {
-      title,
-      datePublished,
-      inlineSummary,
-      generatedSummary,
-      link,
-    } = source;
+    const { title, inlineSummary, generatedSummary, link } = source;
     return (
       <div className="col-sm-12 col-md-12 col-lg-6">
         <div className="mr-2 ml-2">
