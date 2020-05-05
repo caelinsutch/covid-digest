@@ -15,7 +15,7 @@ export interface Story {
   sent: boolean;
 }
 
-const stories: Array<Story> = new Array<Story>();
+let stories: Array<Story> = new Array<Story>();
 
 /**
  * Get all the titles of stories on the BBC COVID front page
@@ -105,7 +105,7 @@ async function summarizeStory($: any): Promise<string | null> {
 
   // Summarise the story
   try {
-    const Summarizer = new SummarizerManager(storyText,4);
+    const Summarizer = new SummarizerManager(storyText, 3);
     const summary: string = Summarizer.getSummaryByFrequency().summary;
     if (summary && !summary.includes('undefined') && !summary.includes('\n')) {
       // Add spaces after punctuation
@@ -138,6 +138,12 @@ async function getAllStories(): Promise<Array<Story>> {
 
   getStoryInlineSummaries($);
 
+  console.log("Before filtering number of stories: ", stories.length)
+  // Filter out duplicate titles before getting summaries
+  stories = stories.filter((object,index) => index === stories.findIndex(obj => obj.title === object.title))
+
+  console.log("After filtering number of stories: ", stories.length)
+
   await asyncForEach(stories, async (story: Story, i) => {
     if (story.inlineSummary === '' && story.link !== '') {
       const $1 = await getStorySource(story.link)
@@ -150,7 +156,8 @@ async function getAllStories(): Promise<Array<Story>> {
     }
   })
 
-  return stories.filter(story => (story.generatedSummary !== '' || story.inlineSummary !== ''));
+  return stories
+    .filter(story => (story.generatedSummary !== '' || story.inlineSummary !== ''));
 }
 
 

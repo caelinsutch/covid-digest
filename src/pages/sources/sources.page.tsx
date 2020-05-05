@@ -24,7 +24,7 @@ class SourcesPage extends React.Component<{}, State> {
     };
   }
 
-  async componentDidMount() {
+  async componentDidMount(): Promise<void> {
     const ref = db.collection('news-stories');
     try {
       ref.onSnapshot((snapshot) => {
@@ -65,19 +65,22 @@ class SourcesPage extends React.Component<{}, State> {
     );
   }
 
-  SourcesList() {
-    return (
-      <section className="sources">
-        <div className="container">
-          <div className="row">
-            // @ts-ignore
-            {this.state.sources.map((props, idx) => (
-              <this.SourceElement key={idx} {...props} />
-            ))}
+  SourcesList(): JSX.Element {
+    if (this.state.sources) {
+      return (
+        <section className="sources">
+          <div className="container">
+            <div className="row">
+              {this.state.sources.map((props, idx) => (
+                <this.SourceElement key={idx} {...props} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    );
+        </section>
+      );
+    } else {
+      return <h1>Loading</h1>;
+    }
   }
 
   render(): JSX.Element {
