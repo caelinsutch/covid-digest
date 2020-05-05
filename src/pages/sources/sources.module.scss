@@ -52,3 +52,9 @@
   margin-right: auto;
   flex: 1;
 }
+
+.card {
+  text-align: left !important;
+  height: 300px;
+  text-overflow-mode: scroll;
+}

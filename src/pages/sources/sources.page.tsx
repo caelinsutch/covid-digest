@@ -1,117 +1,167 @@
 import React from 'react';
 import styles from './sources.module.scss';
 import classNames from 'classnames';
+import { db } from '../../firebase';
+import { Card, Col, Row, Statistic } from 'antd';
+import Skeleton from 'antd/lib/skeleton';
 
 interface Source {
   title: any;
-  summary: any;
-  docLink: string;
-  date: any;
+  datePublished: string;
+  generatedSummary: string;
+  inlineSummary: string;
+  link: string;
+  sent: boolean;
 }
 
-const source: Source[] = [
-  {
-    title: <>Made Up Source</>,
-    summary: (
-      <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida
-        tristique quam, in hendrerit nulla ultricies id. Curabitur accumsan elit
-        sit amet enim posuere efficitur. Sed eget feugiat erat. Ut id nunc
-        interdum, interdum nibh in, feugiat purus. Maecenas sem velit, rutrum
-        vitae placerat nec, vestibulum et diam. Cras orci nisi, convallis eu
-        tincidunt sit amet, lobortis in orci. Mauris maximus lorem quis ligula
-        iaculis, at rutrum massa pharetra. Etiam eget iaculis leo. Ut ultricies
-        nulla vitae est feugiat semper. Donec vestibulum dignissim accumsan.
-        Vestibulum accumsan eu libero quis finibus. Nulla vel neque quis odio
-        blandit imperdiet. Aliquam sit amet enim rutrum, elementum orci in,
-        ultricies felis.
-        <br />
-        Aenean gravida erat vitae sem mollis, non tincidunt ante commodo. Nulla
-        varius, magna vitae aliquam faucibus, arcu mauris finibus nulla, vel
-        mollis lorem purus molestie ligula. Donec diam magna, semper sit amet
-        commodo non, mollis in neque. Sed eget convallis erat. Maecenas quis
-        nisl ornare, lobortis magna quis, dapibus arcu. Proin lacinia et libero
-        in vehicula. Sed eget neque eu justo venenatis euismod nec non turpis.
-        Nam pretium, arcu sed facilisis gravida, diam tellus blandit ligula, non
-        viverra felis mi eget erat. Maecenas molestie, eros sit amet suscipit
-        elementum, purus turpis dictum arcu, aliquet consectetur...
-      </>
-    ),
-    docLink: 'https://www.google.com',
-    date: <>1.1.20</>,
-  },
-  {
-    title: <>Another 1</>,
-    summary: (
-      <>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras gravida
-        tristique quam, in hendrerit nulla ultricies id. Curabitur accumsan elit
-        sit amet enim posuere efficitur. Sed eget feugiat erat. Ut id nunc
-        interdum, interdum nibh in, feugiat purus. Maecenas sem velit, rutrum
-        vitae placerat nec, vestibulum et diam. Cras orci nisi, convallis eu
-        tincidunt sit amet, lobortis in orci. Mauris maximus lorem quis ligula
-        iaculis, at rutrum massa pharetra. Etiam eget iaculis leo. Ut ultricies
-        nulla vitae est feugiat semper. Donec vestibulum dignissim accumsan.
-        Vestibulum accumsan eu libero quis finibus. Nulla vel neque quis odio
-        blandit imperdiet. Aliquam sit amet enim rutrum, elementum orci in,
-        ultricies felis.
-        <br />
-        Aenean gravida erat vitae sem mollis, non tincidunt ante commodo. Nulla
-        varius, magna vitae aliquam faucibus, arcu mauris finibus nulla, vel
-        mollis lorem purus molestie ligula. Donec diam magna, semper sit amet
-        commodo non, mollis in neque. Sed eget convallis erat. Maecenas quis
-        nisl ornare, lobortis magna quis, dapibus arcu. Proin lacinia et libero
-        in vehicula. Sed eget neque eu justo venenatis euismod nec non turpis.
-        Nam pretium, arcu sed facilisis gravida, diam tellus blandit ligula, non
-        viverra felis mi eget erat. Maecenas molestie, eros sit amet suscipit
-        elementum, purus turpis dictum arcu, aliquet consectetur...
-      </>
-    ),
-    docLink: 'https://www.google.com',
-    date: <>1.1.20</>,
-  },
-];
-
-function SourceElement(source: Source): JSX.Element {
-  const { title, date, summary, docLink } = source;
-  return (
-    <div className="col-sm-12 col-md-12 col-lg-6">
-      <div className="mr-2 ml-2">
-        <h2 className="text-center">
-          {title} - {date}
-        </h2>
-        <p className="text-center">{summary}</p>
-        <p>
-          Link to source: <a href={docLink}>{docLink}</a>
-        </p>
-      </div>
-    </div>
-  );
+interface State {
+  sources: Source[] | null;
 }
 
-function SourcesPage(): JSX.Element {
-  return (
-    <>
-      <div className={styles.headerBackground}>
-        <h1 className={classNames(styles.headerText, 'text-center')}>
-          Archived Sources
-        </h1>
+class SourcesPage extends React.Component<{}, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      sources: null,
+    };
+  }
+
+  async componentDidMount(): Promise<void> {
+    const ref = db.collection('news-stories');
+    try {
+      ref.onSnapshot((snapshot) => {
+        const sources: any[] = [];
+        snapshot.docs.forEach((doc) => {
+          sources.push(doc.data());
+        });
+        this.setState({
+          sources: sources,
+        });
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  SourceCard(source: Source): JSX.Element {
+    const { title, inlineSummary, generatedSummary, link } = source;
+    return (
+      <div className="col-sm-12 col-md-12 col-lg-6 p-3">
+        <Card
+          className={styles.card}
+          title={title}
+          extra={<a href={link}>See Original</a>}
+        >
+          {inlineSummary !== '' ? (
+            <div>
+              <p className="font-weight-bold">Inline Summary</p>
+              <p>{inlineSummary}</p>
+            </div>
+          ) : (
+            <div>
+              <p className="font-weight-bold">Generated Summary</p>
+              <p>{generatedSummary}</p>
+            </div>
+          )}
+        </Card>
       </div>
-      <section className={styles.sourcesWrapper}>
-        {source && source.length && (
-          <section className="sources">
+    );
+  }
+
+  loadingCard(): JSX.Element {
+    return (
+      <div className="col-sm-12 col-md-12 col-lg-6 p-3">
+        <Card className={styles.card}>
+          <Skeleton />
+        </Card>
+      </div>
+    );
+  }
+
+  render(): JSX.Element {
+    return (
+      <>
+        <div className={styles.headerBackground}>
+          <h1 className={classNames(styles.headerText, 'text-center')}>
+            Where we Get our Information
+          </h1>
+        </div>
+        <section className={styles.sourcesWrapper}>
+          <section>
             <div className="container">
-              <div className="row">
-                {source.map((props, idx) => (
-                  <SourceElement key={idx} {...props} />
-                ))}
-              </div>
+              <h3>Overview</h3>
+              <p>
+                We scrape all of our information from{' '}
+                <a href="https://www.bbc.com/news/coronavirus">
+                  BBC Covid Coverage
+                </a>{' '}
+                using a web scraper. Each article is passed through a Frequency
+                based summarization algorithm from{' '}
+                <a href="https://www.npmjs.com/package/node-summarizer#desc">
+                  node-summarizer
+                </a>{' '}
+                described as described as This type of summary works best for
+                text that is not too complicated.Split the given text into
+                sentences. Preprocess the sentences by removing all punctuation
+                and making all letters lowercase. Make a list of all the words
+                that occur in the text and find the frequency of the words. Take
+                the calculated frequencies of the words and calculate the total
+                weight of the original sentences. and then stored in a database.
+                Every day, we sent out a summarized article using the Twilio API
+                to all the users who have signed up.
+              </p>
+              <Row gutter={16}>
+                <Col span={12}>
+                  <Statistic
+                    title="Total Cached Stories"
+                    value={this.state.sources?.length}
+                  />
+                </Col>
+                <Col span={12}>
+                  <Statistic
+                    title="Stories with Built in Summaries"
+                    value={
+                      this.state.sources?.filter(
+                        (story) => story.inlineSummary !== ''
+                      ).length
+                    }
+                  />
+                </Col>
+                <Col span={12}>
+                  <Statistic
+                    title="Stories with Built in Summaries"
+                    value={
+                      this.state.sources?.filter(
+                        (story) => story.generatedSummary !== ''
+                      ).length
+                    }
+                  />
+                </Col>
+              </Row>
             </div>
           </section>
-        )}
-      </section>
-    </>
-  );
+          <section className="sources">
+            <div className="container">
+              {this.state.sources ? (
+                <div className="row">
+                  {this.state?.sources.map((props, idx) => (
+                    <this.SourceCard key={idx} {...props} />
+                  ))}
+                </div>
+              ) : (
+                <div className="row">
+                  <this.loadingCard key={1} />
+                  <this.loadingCard key={2} />
+                  <this.loadingCard key={3} />
+                  <this.loadingCard key={4} />
+                </div>
+              )}
+            </div>
+          </section>
+        </section>
+      </>
+    );
+  }
 }
 
 export default SourcesPage;

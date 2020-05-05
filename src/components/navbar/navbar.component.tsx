@@ -10,18 +10,19 @@ import { Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
 import { SidebarWrapper, Sidebar, Shadow } from "./navbar.styled";
 import classNames from "classnames";
 
-function stopScrolling(open: any): void {
-    if (open === true) {
-        document.body.style.overflow = "hidden";
-    }
 
-    if (open === false) {
-        document.body.style.overflow = "visible";
-    }
+function stopScrolling(open: any): void {
+  if (open === true) {
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (open === false) {
+    document.body.style.overflow = 'visible';
+  }
 }
 
 function NavCom(): JSX.Element {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
     return (
         <>
@@ -67,16 +68,16 @@ function NavCom(): JSX.Element {
                     </SidebarWrapper>
                 </Navbar>
 
-                <Switch>
-                    <Route exact path="/" component={HomePage}/>
-                    <Route path="/about" component={AboutPage}/>
-                    <Route path="/how-it-works" component={HowItWorksPage}/>
-                    <Route path="/sources" component={SourcesPage}/>
-                    <Route path="/contact" component={ContactPage}/>
-                </Switch>
-            </BrowserRouter>
-        </>
-    );
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/how-it-works" component={HowItWorksPage} />
+          <Route path="/sources" component={SourcesPage} />
+          <Route path="/contact" component={ContactPage} />
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
 }
 
 export default NavCom;
