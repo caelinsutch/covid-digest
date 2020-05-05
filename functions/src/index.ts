@@ -15,12 +15,14 @@ const twilioPhoneNumber = '+19388370892'
 admin.initializeApp();
 
 // Validate E164 format
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 function validE164(num: string): boolean {
   return /^\+?[1-9]\d{1,14}$/.test(num);
 }
 
+/**
+ * Welcome new users with a text
+ */
 exports.sendWelcomeText = functions.firestore
   .document('users/{docId}')
   .onCreate((snap: DocumentSnapshot) => {
@@ -47,6 +49,9 @@ exports.sendWelcomeText = functions.firestore
     }
   });
 
+/**
+ * Scrape the BBC website for new stories to update in the databaseonce a day
+ */
 exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun(() => {
   return getAllStories().then((stories: Story[] )=> {
     // Parse object to remove nulls so Firebase doesn't complian
@@ -58,6 +63,9 @@ exports.updateBBCStoriesList = functions.pubsub.schedule('every 24 hours').onRun
   })
 })
 
+/**
+ * Send a daily story to all users on chron schedule
+ */
 exports.sendDailyStory = functions.pubsub.schedule('every day 12:00').onRun(() => {
   return sendAllUsersStory();
 })
