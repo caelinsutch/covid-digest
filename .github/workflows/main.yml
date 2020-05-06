@@ -7,15 +7,27 @@ on:
     branches: [ development, master ]
 
 jobs:
-  build:
-    name: Build Site
+  lint-site:
+    name: Lint React Site Code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Main Dependencies
       run: npm install
-    - name: Build the React Site
-      run: npm run build
+    - name: Lint the React Site
+      run: npm run lint
+
+  lint-function:
+    name: Lint Functions Code
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Main Dependencies
+      run: npm install
+      working-directory: functions
+    - name: Lint the React Site
+      run: npm run lint
+      working-directory: functions
 
   deploy:
     name: Deploy Functions
@@ -29,7 +41,7 @@ jobs:
         run: npm install
       - name: Install Main Dependencies
         run: npm install
-      - name: Build the site
+      - name: Build the React site
         run: npm run build
       - name: Deploy Website
         uses: w9jds/firebase-action@master
