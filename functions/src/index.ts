@@ -41,7 +41,7 @@ exports.sendWelcomeText = functions.firestore
         .then(() => {
           snap.ref.update({
             welcomeMessageSent: true,
-          });
+          }).catch(e => console.log(e));
           return true;
         })
         .catch((e) => console.error(e));

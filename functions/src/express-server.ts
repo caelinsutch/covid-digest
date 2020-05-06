@@ -40,14 +40,10 @@ function unsubscribeUser(userPhoneNumber: string) {
           console.log("User " + user.uid + " deleted in FireAuth!");
           admin.firestore().collection('users').doc(user.uid).delete().then(() => {
             console.log("User " + user.uid + " deleted in database!");
-          })
-        }).catch(e => {
-          console.error(e);
-        })
-      }).catch(e => {
-        console.error(e);
-      })
-    })
+          }).catch(e => console.log(e))
+        }).catch(e => {console.error(e);})
+      }).catch(e => {console.error(e);})
+    }).catch(e => console.log(e))
 }
 
 const helpMessage = `Commands:
@@ -64,16 +60,16 @@ app.post('/incoming-message', (req: any, res) => {
   const from: string = req.body.From;
   switch (req.body.Body.toLowerCase().trim()) {
     case "commands":
-      sendMessage(helpMessage, from).then(() => res.end());
+      sendMessage(helpMessage, from).then(() => res.end()).catch(e => console.log(e));
       break;
     case "cancel":
       unsubscribeUser(from);
       break;
     case "hello":
-      sendMessage("Hello!", from).then(() => res.end());
+      sendMessage("Hello!", from).then(() => res.end()).catch(e => console.log(e));
       break;
     case "story":
-      sendUserStory(from).then(() => res.end());
+      sendUserStory(from).then(() => res.end()).catch(e => console.log(e));
       break;
     case "stats":
     case "facts":
@@ -83,11 +79,11 @@ app.post('/incoming-message', (req: any, res) => {
 ☠ ${data.deaths} - Deaths 
 🙂 ${data.recovered} - Recovered 
 Last Updated ${data.lastUpdate} 
-https://covid-digest.com`, from).then(() => res.end())
-      })
+https://covid-digest.com`, from).then(() => res.end()).catch(e => console.log(e));
+      }).catch(e => console.log(e));
       break;
     default:
-      sendMessage("Command not found, type commands to see valid commands", from).then(() => res.end())
+      sendMessage("Command not found, type commands to see valid commands", from).then(() => res.end()).catch(e => console.log(e));
   }
 })
 

@@ -113,15 +113,15 @@ export async function sendAllUsersStory() {
           // Go through each user and add the sent story link to their list of sent stories
           doc.ref.update({
             sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
-          })
+          }).catch(e => console.log(e));
           // Aded to globally sent stories
-          admin.firestore().collection('news-stories').where('link', '==', randomStory.link).get().then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              admin.firestore().collection('news-stories').doc(doc.id).update({ sent: true});
+          admin.firestore().collection('news-stories').where('link', '==', randomStory.link).get().then(() => {
+            querySnapshot.forEach(d => {
+              admin.firestore().collection('news-stories').doc(d.id).update({ sent: true}).catch(e => console.log(e));
             })
-          })
+          }).catch(e => console.log(e));
         })
-      })
+      }).catch(e => console.log(e));
     })
     .catch(err => {
       console.error(err);

@@ -41,7 +41,7 @@ jobs:
       run: npm run build
 
   deploy:
-    name: Deploy Functions
+    name: Deploy Functionss
     needs: build
     runs-on: ubuntu-latest
     steps:
