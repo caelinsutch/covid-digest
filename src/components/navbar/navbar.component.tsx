@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import styles from './navbar.module.scss';
 import AboutPage from '../../pages/about/about.page';
 import HomePage from '../../pages/home/home.page';
-import SourcesPage from '../../pages/sources/sources.page';
-import HowItWorksPage from '../../pages/how-it-works/how-it-works.page';
+import HowItWorksPage from '../../pages/how-it-works/howItWorksPage';
 import ContactPage from '../../pages/contact/contact.page';
 import { Navbar, Button } from 'react-bootstrap';
-import { Route, Switch, BrowserRouter, NavLink } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, NavLink, Link } from 'react-router-dom';
 import { SidebarWrapper, Sidebar, Shadow } from './navbar.styled';
 import classNames from 'classnames';
 
@@ -28,13 +27,15 @@ function NavCom(): JSX.Element {
       <Shadow open={open} />
       <BrowserRouter>
         <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="/">
-            <img className={styles.NavLogo} src="/img/logo.svg" alt="Logo" />
+          <Navbar.Brand>
+            <Link to={'/'}>
+              <img className={styles.NavLogo} src="/img/logo.svg" alt="Logo" />
+            </Link>
           </Navbar.Brand>
           <Button
             variant="outline-secondary"
             className={styles.activatorButton}
-            onClick={() => {
+            onClick={(): void => {
               setOpen(!open);
               stopScrolling(!open);
             }}
@@ -63,15 +64,6 @@ function NavCom(): JSX.Element {
               <br />
               <div className={styles.spacing} />
               <NavLink
-                to="/sources"
-                className={styles.navBarLink}
-                activeClassName={styles.active}
-              >
-                Sources
-              </NavLink>
-              <br />
-              <div className={styles.spacing} />
-              <NavLink
                 to="/contact"
                 className={styles.navBarLink}
                 activeClassName={styles.active}
@@ -94,7 +86,6 @@ function NavCom(): JSX.Element {
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/how-it-works" component={HowItWorksPage} />
-          <Route path="/sources" component={SourcesPage} />
           <Route path="/contact" component={ContactPage} />
         </Switch>
       </BrowserRouter>

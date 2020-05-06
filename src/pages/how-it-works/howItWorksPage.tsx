@@ -18,7 +18,7 @@ interface State {
   sources: Source[] | null;
 }
 
-class SourcesPage extends React.Component<{}, State> {
+class HowItWorksPage extends React.Component<{}, State> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -164,4 +164,4 @@ class SourcesPage extends React.Component<{}, State> {
   }
 }
 
-export default SourcesPage;
+export default HowItWorksPage;
