@@ -5,9 +5,9 @@ import Footer from './components/footer/footer.component';
 import NavCom from './components/navbar/navbar.component';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <NavCom />
     <Footer />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
