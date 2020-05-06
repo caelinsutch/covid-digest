@@ -65,7 +65,7 @@ exports.updateBBCStoriesList = functions.runWith(runtimeOpts)
     // Parse object to remove nulls so Firebase doesn't complian
     const newsStoriesRef = admin.firestore().collection('news-stories');
     const existingStories = await newsStoriesRef.get();
-    const existingStoriesData = await existingStories.docs.map(doc => doc.data());
+    const existingStoriesData = existingStories.docs.map(doc => doc.data());
     stories.forEach(story => {
       if (!(existingStoriesData.map(s => s.title).includes(story.title))) {
         const docRef = newsStoriesRef.doc();
