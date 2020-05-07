@@ -3,6 +3,7 @@ import {Story} from './scraper';
 import {sendMessage} from './express-server';
 import * as functions from 'firebase-functions'
 import * as twilio from 'twilio';
+import getCovidData, {CovidFacts} from './covid-facts';
 
 const accountSid = functions.config().twilio.sid;
 const authToken = functions.config().twilio.auth_token;
@@ -88,6 +89,33 @@ More information: https://covid-digest.com
 }
 
 /**
+ * Generate the text that goes in a text message for a summary
+ * @param title of the article
+ * @param summary of the text
+ * @param link to the original article
+ * @param fact
+ * @param extraText anything extra
+ */
+function summaryTextWithFact(title: string, summary: string, link: string, fact: CovidFacts, extraText = ''): string {
+return `Current Global COVID stats: 
+😷 ${fact.activeCases} - Active Cases 
+☠ ${fact.deaths} - Deaths 
+🙂 ${fact.recovered} - Recovered 
+Last Updated ${fact.lastUpdate}
+
+Your Daily Story:
+${extraText}${title} from BBC News
+
+Summary:
+${summary}
+
+Read Full Article: ${link}
+
+More information: https://covid-digest.com
+`
+}
+
+/**
  * Send all users a random story and add that story to the sent stories list
  */
 export async function sendAllUsersStory() {
@@ -96,15 +124,14 @@ export async function sendAllUsersStory() {
 
   const collections = await admin.firestore().collection('news-stories').get();
   const stories: Story[] = collections.docs.map(doc => doc.data() as Story).filter(story => !story.sent);
-  console.log(stories);
   // Choose a random story
   const randomStory = stories[Math.floor(Math.random() * stories.length)];
-  console.log(randomStory);
+  const covidFacts = await getCovidData();
 
   service.notifications
     .create({
       toBinding: bindings,
-      body: summaryText(randomStory.title, getStorySummary(randomStory), randomStory.link, "Your daily story 😷 \n")
+      body: summaryTextWithFact(randomStory.title, getStorySummary(randomStory), randomStory.link, covidFacts, "Your daily story 😷 \n")
     })
     .then(() => {
       // Update users with the seen story
@@ -113,15 +140,15 @@ export async function sendAllUsersStory() {
           // Go through each user and add the sent story link to their list of sent stories
           doc.ref.update({
             sentStories: admin.firestore.FieldValue.arrayUnion(randomStory.link)
-          })
+          }).catch(e => console.log(e));
           // Aded to globally sent stories
-          admin.firestore().collection('news-stories').where('link', '==', randomStory.link).get().then(querySnapshot => {
-            querySnapshot.forEach(doc => {
-              admin.firestore().collection('news-stories').doc(doc.id).update({ sent: true});
+          admin.firestore().collection('news-stories').where('link', '==', randomStory.link).get().then(() => {
+            querySnapshot.forEach(d => {
+              admin.firestore().collection('news-stories').doc(d.id).update({ sent: true}).catch(e => console.log(e));
             })
-          })
+          }).catch(e => console.log(e));
         })
-      })
+      }).catch(e => console.log(e));
     })
     .catch(err => {
       console.error(err);

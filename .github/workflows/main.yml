@@ -1,4 +1,4 @@
-name: CD
+name: Lint
 
 on:
   push:
@@ -7,40 +7,35 @@ on:
     branches: [ development, master ]
 
 jobs:
-  build:
-    name: Build Site
+  lint-site:
+    name: Lint React Site Code
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install Main Dependencies
       run: npm install
-    - name: Build the React Site
-      run: npm run build
+    - name: Lint the React Site
+      run: npm run lint
 
-  deploy:
-    name: Deploy Functions
-    needs: build
+  lint-function:
+    name: Lint Functions Code
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@master
-      - name: Install Dependencies for Firebase Functions
-        working-directory: functions
-        run: npm install
-      - name: Install Main Dependencies
-        run: npm install
-      - name: Build the site
-        run: npm run build
-      - name: Deploy Website
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      - name: Deploy to Functions Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_PATH: ./functions
+    - uses: actions/checkout@v2
+    - name: Install Main Dependencies
+      run: npm install
+      working-directory: functions
+    - name: Lint the React Site
+      run: npm run lint
+      working-directory: functions
+
+  build:
+    name: Build Code for Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@master
+    - name: Install Main Dependencies
+      run: npm install
+    - name: Build the React site
+      run: npm run build

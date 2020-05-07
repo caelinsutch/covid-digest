@@ -106,6 +106,23 @@ function HomePage(): JSX.Element {
             </div>
           </section>
         )}
+        <section>
+          <div className="container">
+            <div className="row flex justify-content-center align-items-center">
+              <div className="text-center">
+                <h1>Plus, we're open source!</h1>
+                <p>
+                  See all the code that makes this run at our
+                  <a href="https://github.com/caelinsutch/covid-digest">
+                    {' '}
+                    Github.{' '}
+                  </a>
+                  Add features, report bugs, and more :)
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className={classNames(styles.signUpForm, 'mb-4')} id="signUp">
           <div className="container">
             <SignUpCard />
