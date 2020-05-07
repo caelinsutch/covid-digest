@@ -34,7 +34,7 @@ function NavCom(): JSX.Element {
           <Button
             variant="outline-secondary"
             className={styles.activatorButton}
-            onClick={() => {
+            onClick={(): void => {
               setOpen(!open);
               stopScrolling(!open);
             }}
