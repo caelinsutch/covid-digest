@@ -59,7 +59,7 @@ const runtimeOpts: RuntimeOptions = {
  * Scrape the BBC website for new stories to update in the databaseonce a day
  */
 exports.updateBBCStoriesList = functions.runWith(runtimeOpts)
-  .pubsub.schedule('every day 00:00').onRun(async () => {
+  .pubsub.schedule('every mon 00:00').onRun(async () => {
   return getAllStories().then(async (stories: Story[] )=> {
     const batch = admin.firestore().batch();
     // Parse object to remove nulls so Firebase doesn't complian
@@ -80,7 +80,7 @@ exports.updateBBCStoriesList = functions.runWith(runtimeOpts)
 /**
  * Send a daily story to all users on chron schedule
  */
-exports.sendDailyStory = functions.pubsub.schedule('every day 12:00').onRun(() => {
+exports.sendDailyStory = functions.pubsub.schedule('every mon,wed,fri 12:00').onRun(() => {
   return sendAllUsersStory();
 })
 
