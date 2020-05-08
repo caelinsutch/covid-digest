@@ -100,7 +100,7 @@ class HowItWorksPage extends React.Component<{}, State> {
                 <a href="https://www.npmjs.com/package/node-summarizer#desc">
                   node-summarizer
                 </a>{' '}
-                which works like this: It working best for text that is not too
+                which works like this: It works best for text that is not too
                 complicated. The program splits the given text into sentences.
                 It proceeds to preprocess the sentences by removing all
                 punctuation and makes all letters lowercase. It then makes a
