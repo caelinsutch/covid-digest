@@ -100,15 +100,16 @@ class HowItWorksPage extends React.Component<{}, State> {
                 <a href="https://www.npmjs.com/package/node-summarizer#desc">
                   node-summarizer
                 </a>{' '}
-                which works like this: It working best for
-                text that is not too complicated. The program splits the given text into
-                sentences. It proceeds to preprocess the sentences by removing all punctuation
-                and makes all letters lowercase. It then makes a list of all the words
-                that occur in the text and finds the frequency of the words. The program then takes
-                the calculated frequencies of the words and calculates the total
-                weight of the original sentences. The summary is then generated and stored in a database.
-                Every day, we send out a summarized article using the Twilio API
-                to all the users who have signed up.
+                which works like this: It working best for text that is not too
+                complicated. The program splits the given text into sentences.
+                It proceeds to preprocess the sentences by removing all
+                punctuation and makes all letters lowercase. It then makes a
+                list of all the words that occur in the text and finds the
+                frequency of the words. The program then takes the calculated
+                frequencies of the words and calculates the total weight of the
+                original sentences. The summary is then generated and stored in
+                a database. Every day, we send out a summarized article using
+                the Twilio API to all the users who have signed up.
               </p>
               <Row gutter={16}>
                 <Col span={12}>
