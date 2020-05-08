@@ -120,7 +120,7 @@ class HowItWorksPage extends React.Component<{}, State> {
                 </Col>
                 <Col span={12}>
                   <Statistic
-                    title="Stories with Built in Summaries"
+                    title="Stories with Built In Summaries"
                     value={
                       this.state.sources?.filter(
                         (story) => story.inlineSummary !== ''
@@ -130,7 +130,7 @@ class HowItWorksPage extends React.Component<{}, State> {
                 </Col>
                 <Col span={12}>
                   <Statistic
-                    title="Stories with Built in Summaries"
+                    title="Stories with Generated Summaries"
                     value={
                       this.state.sources?.filter(
                         (story) => story.generatedSummary !== ''
